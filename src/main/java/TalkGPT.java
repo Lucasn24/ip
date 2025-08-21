@@ -2,6 +2,9 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class TalkGPT {
+    public static Task[] list = new Task[100];
+    public static int index = 0;
+
     public static String formatList(Task[] arr) {
         String border = "____________________________________________________________\n";
         String header = "Here are the tasks in your list:\n";
@@ -17,10 +20,20 @@ public class TalkGPT {
         return border + header + msg + border;
     }
 
+    public static void formatAdd(Task task) {
+        String border = "____________________________________________________________\n";
+        String header = "Got it. I've added this task:\n";
+        list[index] = task;
+        index++;
+
+        String display = String.format("Now you have %d tasks in the list.\n", index);
+
+        System.out.println(border + header + " " + task.toString() + "\n" + display + border);
+    }
+
     public static void main(String[] args) {
         //initialisation
         Scanner scanner = new Scanner(System.in);
-        Task[] list = new Task[100];
 
         //Introduction
         String intro = "____________________________________________________________\n"
@@ -32,41 +45,60 @@ public class TalkGPT {
         //getting input
         System.out.print("Would you like to add to the list?: ");
         String input = scanner.nextLine();
-        int index = 0;
 
         //looping
         while (!Objects.equals(input, "bye")) {
-            String[] parts = input.split(" ");
-            String firstWord = parts[0];
-
-            if (Objects.equals(input, "list")) {
-                System.out.print(formatList(list));
-            } else if (Objects.equals(firstWord, "mark")) {
-                int taskId = Integer.parseInt(parts[1]) - 1;
-
-                list[taskId].mark();
-
-                String msg = "____________________________________________________________\n"
-                        + "Nice! I've marked this task as done: \n" + list[taskId] + "\n"
-                        + "____________________________________________________________";
-                System.out.println(msg);
-            } else if (Objects.equals(firstWord, "unmark")) {
-                int taskId = Integer.parseInt(parts[1]) - 1;
-
-                list[taskId].unmark();
-
-                String msg = "____________________________________________________________\n"
-                        + "OK, I've marked this task as not done yet: \n" + list[taskId] + "\n"
-                        + "____________________________________________________________";
-                System.out.println(msg);
+            int firstSpaceIndex = input.indexOf(" ");
+            if (firstSpaceIndex == -1) {
+                if (Objects.equals(input, "list")) {
+                    System.out.print(formatList(list));
+                } else {
+                    System.out.print("Invalid input");
+                }
             } else {
-                list[index] = new Task(input);
-                index++;
-                String msg = "____________________________________________________________\n"
-                        + "added: " + input + "\n"
-                        + "____________________________________________________________";
+                String command = input.substring(0, firstSpaceIndex);
+                String message = input.substring(firstSpaceIndex + 1);
 
-                System.out.println(msg);
+                switch (command) {
+                    case "mark" -> {
+                        int taskId = Integer.parseInt(message) - 1;
+
+                        list[taskId].mark();
+
+                        String msg = "____________________________________________________________\n"
+                                + "Nice! I've marked this task as done: \n" + list[taskId] + "\n"
+                                + "____________________________________________________________";
+                        System.out.println(msg);
+                    }
+                    case "unmark" -> {
+                        int taskId = Integer.parseInt(message) - 1;
+
+                        list[taskId].unmark();
+
+                        String msg = "____________________________________________________________\n"
+                                + "OK, I've marked this task as not done yet: \n" + list[taskId] + "\n"
+                                + "____________________________________________________________";
+                        System.out.println(msg);
+                    }
+                    case "todo" -> {
+                        formatAdd(new ToDo(message));
+                    }
+                    case "deadline" -> {
+                        String[] parts = message.split("/");
+                        String task = parts[0];
+                        String due = parts[1].substring(2);
+
+                        formatAdd(new Deadline(task, due));
+                    }
+                    case "event" -> {
+                        String[] parts = message.split("/");
+                        String task = parts[0];
+                        String from = parts[1].substring(4);
+                        String to = parts[2].substring(2);
+
+                        formatAdd(new Event(task, from, to));
+                    }
+                }
             }
 
             System.out.print("Would you like to add to the list?: ");
