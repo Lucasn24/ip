@@ -110,5 +110,6 @@ public class TalkGPT {
                 + "Bye. Hope to see you again soon!\n"
                 + "____________________________________________________________";
         System.out.println(goodbye);
+        scanner.close();
     }
 }
