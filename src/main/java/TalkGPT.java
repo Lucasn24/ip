@@ -51,7 +51,7 @@ public class TalkGPT {
             int firstSpaceIndex = input.indexOf(" ");
             if (firstSpaceIndex == -1) {
                 if (Objects.equals(input, "list")) {
-                    System.out.print(formatList(list));
+                    System.out.println(formatList(list));
                 } else {
                     System.out.print("Invalid input");
                 }
@@ -66,8 +66,8 @@ public class TalkGPT {
                         list[taskId].mark();
 
                         String msg = "____________________________________________________________\n"
-                                + "Nice! I've marked this task as done: \n" + list[taskId] + "\n"
-                                + "____________________________________________________________";
+                                + "Nice! I've marked this task as done:\n" + " " + list[taskId] + "\n"
+                                + "____________________________________________________________\n";
                         System.out.println(msg);
                     }
                     case "unmark" -> {
@@ -76,8 +76,8 @@ public class TalkGPT {
                         list[taskId].unmark();
 
                         String msg = "____________________________________________________________\n"
-                                + "OK, I've marked this task as not done yet: \n" + list[taskId] + "\n"
-                                + "____________________________________________________________";
+                                + "OK, I've marked this task as not done yet:\n" + " " + list[taskId] + "\n"
+                                + "____________________________________________________________\n";
                         System.out.println(msg);
                     }
                     case "todo" -> {
