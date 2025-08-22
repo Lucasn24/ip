@@ -1,9 +1,12 @@
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.Set;
 
 public class TalkGPT {
     public static Task[] list = new Task[100];
     public static int index = 0;
+    public static Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline", "event", "list");
+
 
     public static String formatList(Task[] arr) {
         String border = "____________________________________________________________\n";
@@ -48,61 +51,70 @@ public class TalkGPT {
 
         //looping
         while (!Objects.equals(input, "bye")) {
-            int firstSpaceIndex = input.indexOf(" ");
-            if (firstSpaceIndex == -1) {
-                if (Objects.equals(input, "list")) {
-                    System.out.println(formatList(list));
+            try {
+                int firstSpaceIndex = input.indexOf(" ");
+                if (firstSpaceIndex == -1) {
+                    if (Objects.equals(input, "list")) {
+                        System.out.println(formatList(list));
+                    } else {
+                        if (!validCommands.contains(input)) {
+                            throw new TalkGPTException("Sorry, I don't recognize that command!");
+                        } else {
+                            throw new TalkGPTException("The description of a " + input + " cannot be empty.");
+                        }
+                    }
                 } else {
-                    System.out.print("Invalid input");
-                }
-            } else {
-                String command = input.substring(0, firstSpaceIndex);
-                String message = input.substring(firstSpaceIndex + 1);
+                    String command = input.substring(0, firstSpaceIndex);
+                    String message = input.substring(firstSpaceIndex + 1);
 
-                switch (command) {
-                    case "mark" -> {
-                        int taskId = Integer.parseInt(message) - 1;
+                    switch (command) {
+                        case "mark" -> {
+                            int taskId = Integer.parseInt(message) - 1;
 
-                        list[taskId].mark();
+                            list[taskId].mark();
 
-                        String msg = "____________________________________________________________\n"
-                                + "Nice! I've marked this task as done:\n" + " " + list[taskId] + "\n"
-                                + "____________________________________________________________\n";
-                        System.out.println(msg);
-                    }
-                    case "unmark" -> {
-                        int taskId = Integer.parseInt(message) - 1;
+                            String msg = "____________________________________________________________\n"
+                                    + "Nice! I've marked this task as done:\n" + " " + list[taskId] + "\n"
+                                    + "____________________________________________________________\n";
+                            System.out.println(msg);
+                        }
+                        case "unmark" -> {
+                            int taskId = Integer.parseInt(message) - 1;
 
-                        list[taskId].unmark();
+                            list[taskId].unmark();
 
-                        String msg = "____________________________________________________________\n"
-                                + "OK, I've marked this task as not done yet:\n" + " " + list[taskId] + "\n"
-                                + "____________________________________________________________\n";
-                        System.out.println(msg);
-                    }
-                    case "todo" -> {
-                        formatAdd(new ToDo(message));
-                    }
-                    case "deadline" -> {
-                        String[] parts = message.split("/");
-                        String task = parts[0];
-                        String due = parts[1].substring(2);
+                            String msg = "____________________________________________________________\n"
+                                    + "OK, I've marked this task as not done yet:\n" + " " + list[taskId] + "\n"
+                                    + "____________________________________________________________\n";
+                            System.out.println(msg);
+                        }
+                        case "todo" -> {
+                            formatAdd(new ToDo(message));
+                        }
+                        case "deadline" -> {
+                            String[] parts = message.split("/");
+                            String task = parts[0];
+                            String due = parts[1].substring(2);
 
-                        formatAdd(new Deadline(task, due));
-                    }
-                    case "event" -> {
-                        String[] parts = message.split("/");
-                        String task = parts[0];
-                        String from = parts[1].substring(4);
-                        String to = parts[2].substring(2);
+                            formatAdd(new Deadline(task, due));
+                        }
+                        case "event" -> {
+                            String[] parts = message.split("/");
+                            String task = parts[0];
+                            String from = parts[1].substring(4);
+                            String to = parts[2].substring(2);
 
-                        formatAdd(new Event(task, from, to));
+                            formatAdd(new Event(task, from, to));
+                        }
                     }
                 }
+            } catch (TalkGPTException e) {
+                String border = "____________________________________________________________\n";
+                System.out.println(border + e.getMessage() + "\n" + border);
+            } finally {
+                System.out.print("Would you like to add to the list?: ");
+                input = scanner.nextLine();
             }
-
-            System.out.print("Would you like to add to the list?: ");
-            input = scanner.nextLine();
         }
 
         //goodbye
