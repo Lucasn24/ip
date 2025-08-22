@@ -1,22 +1,21 @@
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 
 public class TalkGPT {
-    public static Task[] list = new Task[100];
+    public static ArrayList<Task> list = new ArrayList<>();
     public static int index = 0;
-    public static Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline", "event", "list");
+    public static Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline", "event", "list", "delete");
 
 
-    public static String formatList(Task[] arr) {
+    public static String formatList() {
         String border = "____________________________________________________________\n";
         String header = "Here are the tasks in your list:\n";
         StringBuilder msg = new StringBuilder();
 
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == null) break;
-
-            String adding = String.format("%d. %s\n", i+1, arr[i].toString());
+        for (int i = 0; i < list.size(); i++) {
+            String adding = String.format("%d. %s\n", i+1, list.get(i).toString());
             msg.append(adding);
         }
 
@@ -26,10 +25,9 @@ public class TalkGPT {
     public static void formatAdd(Task task) {
         String border = "____________________________________________________________\n";
         String header = "Got it. I've added this task:\n";
-        list[index] = task;
-        index++;
+        list.add(task);
 
-        String display = String.format("Now you have %d tasks in the list.\n", index);
+        String display = String.format("Now you have %d tasks in the list.\n", list.size());
 
         System.out.println(border + header + " " + task.toString() + "\n" + display + border);
     }
@@ -55,7 +53,7 @@ public class TalkGPT {
                 int firstSpaceIndex = input.indexOf(" ");
                 if (firstSpaceIndex == -1) {
                     if (Objects.equals(input, "list")) {
-                        System.out.println(formatList(list));
+                        System.out.println(formatList());
                     } else {
                         if (!validCommands.contains(input)) {
                             throw new TalkGPTException("Sorry, I don't recognize that command!");
@@ -70,21 +68,32 @@ public class TalkGPT {
                     switch (command) {
                         case "mark" -> {
                             int taskId = Integer.parseInt(message) - 1;
-
-                            list[taskId].mark();
+                            Task task = list.get(taskId);
+                            task.mark();
 
                             String msg = "____________________________________________________________\n"
-                                    + "Nice! I've marked this task as done:\n" + " " + list[taskId] + "\n"
+                                    + "Nice! I've marked this task as done:\n" + " " + task + "\n"
                                     + "____________________________________________________________\n";
                             System.out.println(msg);
                         }
                         case "unmark" -> {
                             int taskId = Integer.parseInt(message) - 1;
-
-                            list[taskId].unmark();
+                            Task task = list.get(taskId);
+                            task.unmark();
 
                             String msg = "____________________________________________________________\n"
-                                    + "OK, I've marked this task as not done yet:\n" + " " + list[taskId] + "\n"
+                                    + "OK, I've marked this task as not done yet:\n" + " " + task + "\n"
+                                    + "____________________________________________________________\n";
+                            System.out.println(msg);
+                        }
+                        case "delete" -> {
+                            int taskId = Integer.parseInt(message) - 1;
+                            Task task = list.get(taskId);
+                            list.remove(taskId);
+
+                            String msg = "____________________________________________________________\n"
+                                    + "Noted. I've removed this task:\n" + " " + task + "\n"
+                                    + "Now you have " + list.size() + " tasks in the list.\n"
                                     + "____________________________________________________________\n";
                             System.out.println(msg);
                         }
