@@ -5,12 +5,11 @@ import java.util.Set;
 
 public class TalkGPT {
     public static ArrayList<Task> list = new ArrayList<>();
-    public static int index = 0;
-    public static Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline", "event", "list", "delete");
+    public static final String border = "____________________________________________________________\n";
+    public static final Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline", "event", "list", "delete");
 
 
     public static String formatList() {
-        String border = "____________________________________________________________\n";
         String header = "Here are the tasks in your list:\n";
         StringBuilder msg = new StringBuilder();
 
@@ -23,7 +22,6 @@ public class TalkGPT {
     }
 
     public static void formatAdd(Task task) {
-        String border = "____________________________________________________________\n";
         String header = "Got it. I've added this task:\n";
         list.add(task);
 
@@ -37,10 +35,10 @@ public class TalkGPT {
         Scanner scanner = new Scanner(System.in);
 
         //Introduction
-        String intro = "____________________________________________________________\n"
+        String intro = border
                 + "Hello! I'm TalkGPT!\n"
                 + "What can I do for you?\n"
-                + "____________________________________________________________\n";
+                + border;
         System.out.println(intro);
 
         //getting input
@@ -71,9 +69,9 @@ public class TalkGPT {
                             Task task = list.get(taskId);
                             task.mark();
 
-                            String msg = "____________________________________________________________\n"
+                            String msg = border
                                     + "Nice! I've marked this task as done:\n" + " " + task + "\n"
-                                    + "____________________________________________________________\n";
+                                    + border;
                             System.out.println(msg);
                         }
                         case "unmark" -> {
@@ -81,9 +79,9 @@ public class TalkGPT {
                             Task task = list.get(taskId);
                             task.unmark();
 
-                            String msg = "____________________________________________________________\n"
+                            String msg = border
                                     + "OK, I've marked this task as not done yet:\n" + " " + task + "\n"
-                                    + "____________________________________________________________\n";
+                                    + border;
                             System.out.println(msg);
                         }
                         case "delete" -> {
@@ -91,10 +89,10 @@ public class TalkGPT {
                             Task task = list.get(taskId);
                             list.remove(taskId);
 
-                            String msg = "____________________________________________________________\n"
+                            String msg = border
                                     + "Noted. I've removed this task:\n" + " " + task + "\n"
                                     + "Now you have " + list.size() + " tasks in the list.\n"
-                                    + "____________________________________________________________\n";
+                                    + border;
                             System.out.println(msg);
                         }
                         case "todo" -> {
@@ -118,7 +116,6 @@ public class TalkGPT {
                     }
                 }
             } catch (TalkGPTException e) {
-                String border = "____________________________________________________________\n";
                 System.out.println(border + e.getMessage() + "\n" + border);
             } finally {
                 System.out.print("Would you like to add to the list?: ");
@@ -127,10 +124,10 @@ public class TalkGPT {
         }
 
         //goodbye
-        String goodbye = "____________________________________________________________\n"
+        String goodbye = border
                 + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________";
-        System.out.println(goodbye);
+                + border;
+        System.out.print(goodbye);
         scanner.close();
     }
 }
