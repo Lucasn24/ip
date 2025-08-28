@@ -50,4 +50,12 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
+    public void delete(Task task){
+        String lineToRemove = task.serialize();
+
+        List<String> updatedLines = lines.stream()
+                .filter(line -> !line.equals(lineToRemove))
+                .collect(Collectors.toList());
+    }
 }

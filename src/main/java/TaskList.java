@@ -15,7 +15,7 @@ public class TaskList extends ArrayList<Task> {
         return task;
     }
 
-    public Task removeTask(int index){
+    public Task deleteTask(int index){
         Task task = super.get(index);
         super.remove(index);
 
