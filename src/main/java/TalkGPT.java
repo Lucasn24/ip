@@ -4,7 +4,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class TalkGPT {
-    public static ArrayList<Task> list = new ArrayList<>();
+    public static Storage storage = new Storage("C:\\Users\\lucas\\Documents\\IP\\src\\main\\test\\data.txt");
+    public static ArrayList<Task> list = storage.load();
     public static final String border = "____________________________________________________________\n";
     public static final Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline", "event", "list", "delete");
 
@@ -18,16 +19,21 @@ public class TalkGPT {
             msg.append(adding);
         }
 
-        return border + header + msg + border;
+        return formatMessage(header + msg);
     }
 
     public static void formatAdd(Task task) {
         String header = "Got it. I've added this task:\n";
         list.add(task);
+        storage.save(task);
 
         String display = String.format("Now you have %d tasks in the list.\n", list.size());
 
-        System.out.println(border + header + " " + task.toString() + "\n" + display + border);
+        System.out.println(formatMessage(header + " " + task + "\n" + display));
+    }
+
+    public static String formatMessage(String message) {
+        return border + message + border;
     }
 
     public static void main(String[] args) {
@@ -35,11 +41,12 @@ public class TalkGPT {
         Scanner scanner = new Scanner(System.in);
 
         //Introduction
-        String intro = border
-                + "Hello! I'm TalkGPT!\n"
-                + "What can I do for you?\n"
-                + border;
-        System.out.println(intro);
+        String intro = """
+                Hello! I'm TalkGPT!
+                What can I do for you?
+                """;
+        
+        System.out.println(formatMessage(intro));
 
         //getting input
         System.out.print("Would you like to add to the list?: ");
@@ -69,39 +76,34 @@ public class TalkGPT {
                             Task task = list.get(taskId);
                             task.mark();
 
-                            String msg = border
-                                    + "Nice! I've marked this task as done:\n" + " " + task + "\n"
-                                    + border;
-                            System.out.println(msg);
+                            String msg = "Nice! I've marked this task as done:\n" + " " + task + "\n";
+                            
+                            System.out.println(formatMessage(msg));
                         }
                         case "unmark" -> {
                             int taskId = Integer.parseInt(message) - 1;
                             Task task = list.get(taskId);
                             task.unmark();
 
-                            String msg = border
-                                    + "OK, I've marked this task as not done yet:\n" + " " + task + "\n"
-                                    + border;
-                            System.out.println(msg);
+                            String msg = "OK, I've marked this task as not done yet:\n" + " " + task + "\n";
+                            
+                            System.out.println(formatMessage(msg));
                         }
                         case "delete" -> {
                             int taskId = Integer.parseInt(message) - 1;
                             Task task = list.get(taskId);
                             list.remove(taskId);
 
-                            String msg = border
-                                    + "Noted. I've removed this task:\n" + " " + task + "\n"
-                                    + "Now you have " + list.size() + " tasks in the list.\n"
-                                    + border;
-                            System.out.println(msg);
+                            String msg = "Noted. I've removed this task:\n" + " " + task + "\n"
+                                    + "Now you have " + list.size() + " tasks in the list.\n";                            
+                            
+                            System.out.println(formatMessage(msg));
                         }
-                        case "todo" -> {
-                            formatAdd(new ToDo(message));
-                        }
+                        case "todo" -> formatAdd(new ToDo(message));
                         case "deadline" -> {
                             String[] parts = message.split("/");
                             String task = parts[0];
-                            String due = parts[1].substring(2);
+                            String due = parts[1];
 
                             formatAdd(new Deadline(task, due));
                         }
@@ -116,7 +118,7 @@ public class TalkGPT {
                     }
                 }
             } catch (TalkGPTException e) {
-                System.out.println(border + e.getMessage() + "\n" + border);
+                System.out.println(formatMessage(e.getMessage() + "\n"));
             } finally {
                 System.out.print("Would you like to add to the list?: ");
                 input = scanner.nextLine();
@@ -124,10 +126,8 @@ public class TalkGPT {
         }
 
         //goodbye
-        String goodbye = border
-                + "Bye. Hope to see you again soon!\n"
-                + border;
-        System.out.print(goodbye);
+        String goodbye = "Bye. Hope to see you again soon!\n";
+        System.out.print(formatMessage(goodbye));
         scanner.close();
     }
 }
