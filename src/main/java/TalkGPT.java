@@ -67,8 +67,9 @@ public class TalkGPT {
                         }
                     }
                 } else {
-                    String command = input.substring(0, firstSpaceIndex);
-                    String message = input.substring(firstSpaceIndex + 1);
+                    String[] parts = input.split(" ", 2);
+                    String command = parts[0];
+                    String message = parts[1];
 
                     switch (command) {
                         case "mark" -> {
@@ -101,19 +102,26 @@ public class TalkGPT {
                         }
                         case "todo" -> formatAdd(new ToDo(message));
                         case "deadline" -> {
-                            String[] parts = message.split("/");
-                            String task = parts[0];
-                            String due = parts[1];
-
-                            formatAdd(new Deadline(task, due));
+                            //return book /by 2/12/2019 1800
+                            String[] components = message.split(" /by ", 2);
+                            String task = components[0];
+                            String stringDate = components[1];
+                            formatAdd(new Deadline(task, stringDate));
                         }
                         case "event" -> {
-                            String[] parts = message.split("/");
-                            String task = parts[0];
-                            String from = parts[1].substring(4);
-                            String to = parts[2].substring(2);
+                            //project meeting /from 2/12/2019 1800 /to 2/12/2019 2000
+                            String[] components = message.split(" /from ", 2);
+                            String task = components[0];
+
+                            //2/12/2019 1800 /to 2/12/2019 2000
+                            String[] dates = components[1].split(" /to ", 2);
+                            String from = dates[0];
+                            String to = dates[1];
 
                             formatAdd(new Event(task, from, to));
+//                            System.out.println(task);
+//                            System.out.println(from);
+//                            System.out.println(to);
                         }
                     }
                 }
