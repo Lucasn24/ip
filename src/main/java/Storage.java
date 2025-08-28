@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.io.File;
@@ -59,6 +60,8 @@ public class Storage {
         try {
             String lineToRemove = task.serialize();
 
+            System.out.println("linetoremove: " + lineToRemove);
+
             //the file in the list
             List<String> lines = Files.readAllLines(Paths.get(path));
 
@@ -68,25 +71,28 @@ public class Storage {
                     .toList();
 
             //overwrite the file
-            Files.write(Paths.get(path), updatedLines);
+            Files.write(Path.of(path), updatedLines);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void update(Task oldTask, Task newTask) {
+    public void update(String oldTask, Task newTask) {
         try {
             String lineToUpdate = newTask.serialize();
-            String lineToRemove = oldTask.serialize();
 
+            System.out.println("lineToUpdate: " + lineToUpdate);
+
+            System.out.println("lineToRemove: " + oldTask);
             List<String> lines = Files.readAllLines(Paths.get(path));
 
             List<String> updatedLines = lines.stream()
-                    .map(line -> Objects.equals(line, lineToRemove) ? lineToUpdate : line)
-                    .filter(line -> line != null)
+                    .map(line -> Objects.equals(line, oldTask) ? lineToUpdate : line)
                     .toList();
 
-            Files.write(Paths.get(path), updatedLines);
+            Files.write(Path.of(path), updatedLines);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

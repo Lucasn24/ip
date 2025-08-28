@@ -26,7 +26,7 @@ public class TalkGPT {
                 Command c = parser.parse(fullCommand);
                 c.execute(list, ui, storage);
                 isExit = c.isExit();
-            }  catch (TalkGPTException e) {
+            } catch (TalkGPTException e) {
                 System.out.println(e.getMessage());
             }
         }

@@ -18,6 +18,10 @@ public class Parser {
             return new ListCommand();
         }
 
+        if (Objects.equals(input, "bye")) {
+            return new GoodbyeCommand();
+        }
+
         if (input == null) {
             throw new TalkGPTException("The input cannot be empty.");
         }
@@ -27,9 +31,6 @@ public class Parser {
         String message = parts[1];
 
         switch (command) {
-            case "bye" -> {
-                return new GoodbyeCommand();
-            }
             case "mark" -> {
                 return new MarkCommand(message);
             }

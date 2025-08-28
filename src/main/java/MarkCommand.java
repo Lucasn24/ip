@@ -9,7 +9,7 @@ public class MarkCommand extends Command{
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
-        Task oldTask = list.get(index);
+        String oldTask = list.get(index).serialize();
         Task newTask = list.markTask(index);
         ui.markTask(newTask, list.size());
         storage.update(oldTask, newTask);

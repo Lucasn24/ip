@@ -8,7 +8,7 @@ public class UnmarkCommand extends Command{
 
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) {
-        Task oldTask = list.get(index);
+        String oldTask = list.get(index).serialize();
         Task newTask = list.unmarkTask(index);
         ui.markTask(newTask, list.size());
         storage.update(oldTask, newTask);
