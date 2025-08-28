@@ -15,19 +15,8 @@ public class Storage {
         File folder = file.getParentFile();
         ArrayList<Task> list = new ArrayList<>();
 
-        if (folder.exists()){
-            //initalise
-            Scanner sc = new Scanner(file);
 
-            while (sc.hasNextLine()){
-                String input = sc.nextLine();
-                list.add(Task.deserialize(input));
-            }
-            
             return list;
-        } else {
-            folder.mkdirs();
-            return list;
-        }
+
     }
 }
