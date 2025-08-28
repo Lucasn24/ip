@@ -2,6 +2,7 @@ public class MarkCommand extends Command{
     private int index;
 
     public MarkCommand(String index){
+        super(false);
         this.index = Integer.parseInt(index) - 1;
     }
 

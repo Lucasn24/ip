@@ -1,7 +1,11 @@
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Storage {
@@ -13,9 +17,9 @@ public class Storage {
         this.file = new File(path);
     }
 
-    public ArrayList<Task> load(){
+    public TaskList load(){
         File folder = file.getParentFile();
-        ArrayList<Task> list = new ArrayList<>();
+        TaskList list = new TaskList();
 
         try {
             if (!folder.exists()){
@@ -31,7 +35,7 @@ public class Storage {
 
             while (sc.hasNextLine()){
                 String input = sc.nextLine();
-                list.add(Task.deserialize(input));
+                list.addTask(Task.deserialize(input));
             }
 
             return list;
@@ -51,11 +55,40 @@ public class Storage {
         }
     }
 
-    public void delete(Task task){
-        String lineToRemove = task.serialize();
+    public void delete(Task task) {
+        try {
+            String lineToRemove = task.serialize();
 
-        List<String> updatedLines = lines.stream()
-                .filter(line -> !line.equals(lineToRemove))
-                .collect(Collectors.toList());
+            //the file in the list
+            List<String> lines = Files.readAllLines(Paths.get(path));
+
+            //using streams to filter and remove the thing
+            List<String> updatedLines = lines.stream()
+                    .filter(line -> !line.equals(lineToRemove))
+                    .toList();
+
+            //overwrite the file
+            Files.write(Paths.get(path), updatedLines);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void update(Task oldTask, Task newTask) {
+        try {
+            String lineToUpdate = newTask.serialize();
+            String lineToRemove = oldTask.serialize();
+
+            List<String> lines = Files.readAllLines(Paths.get(path));
+
+            List<String> updatedLines = lines.stream()
+                    .map(line -> Objects.equals(line, lineToRemove) ? lineToUpdate : line)
+                    .filter(line -> line != null)
+                    .toList();
+
+            Files.write(Paths.get(path), updatedLines);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

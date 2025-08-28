@@ -2,7 +2,8 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Parser {
-    public static final Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline", "event", "list", "delete");
+    public static final Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline",
+            "event", "list", "delete", "bye");
 
     public Parser(){
 
@@ -26,6 +27,9 @@ public class Parser {
         String message = parts[1];
 
         switch (command) {
+            case "bye" -> {
+                return new GoodbyeCommand();
+            }
             case "mark" -> {
                 return new MarkCommand(message);
             }

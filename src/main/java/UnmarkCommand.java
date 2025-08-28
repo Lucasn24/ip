@@ -2,6 +2,7 @@ public class UnmarkCommand extends Command{
     private int index;
 
     public UnmarkCommand(String index){
+        super(false);
         this.index = Integer.parseInt(index) - 1;
     }
 

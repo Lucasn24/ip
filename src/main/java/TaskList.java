@@ -1,6 +1,11 @@
 import java.util.ArrayList;
 
 public class TaskList extends ArrayList<Task> {
+
+    public TaskList(){
+
+    }
+
     public Task markTask(int index){
         Task task = super.get(index);
         task.mark();
