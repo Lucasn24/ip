@@ -119,9 +119,6 @@ public class TalkGPT {
                             String to = dates[1];
 
                             formatAdd(new Event(task, from, to));
-//                            System.out.println(task);
-//                            System.out.println(from);
-//                            System.out.println(to);
                         }
                     }
                 }
