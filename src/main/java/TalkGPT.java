@@ -4,7 +4,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class TalkGPT {
-    public static ArrayList<Task> list = new ArrayList<>();
+    public static Storage storage = new Storage("C:\\Users\\lucas\\Documents\\IP\\src\\main\\test\\data.txt");
+    public static ArrayList<Task> list = storage.load();
     public static final String border = "____________________________________________________________\n";
     public static final Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline", "event", "list", "delete");
 
@@ -24,10 +25,11 @@ public class TalkGPT {
     public static void formatAdd(Task task) {
         String header = "Got it. I've added this task:\n";
         list.add(task);
+        storage.save(task);
 
         String display = String.format("Now you have %d tasks in the list.\n", list.size());
 
-        System.out.println(formatMessage(header + " " + task.toString() + "\n" + display));
+        System.out.println(formatMessage(header + " " + task + "\n" + display));
     }
 
     public static String formatMessage(String message) {
@@ -39,8 +41,10 @@ public class TalkGPT {
         Scanner scanner = new Scanner(System.in);
 
         //Introduction
-        String intro = "Hello! I'm TalkGPT!\n"
-                + "What can I do for you?\n";
+        String intro = """
+                Hello! I'm TalkGPT!
+                What can I do for you?
+                """;
         
         System.out.println(formatMessage(intro));
 
@@ -95,13 +99,11 @@ public class TalkGPT {
                             
                             System.out.println(formatMessage(msg));
                         }
-                        case "todo" -> {
-                            formatAdd(new ToDo(message));
-                        }
+                        case "todo" -> formatAdd(new ToDo(message));
                         case "deadline" -> {
                             String[] parts = message.split("/");
                             String task = parts[0];
-                            String due = parts[1].substring(2);
+                            String due = parts[1];
 
                             formatAdd(new Deadline(task, due));
                         }

@@ -1,10 +1,18 @@
 abstract public class Task {
-    private String task;
-    private boolean done = false;
+    private final String task;
+    private boolean done;
 
     Task(String task, boolean done){
         this.task = task;
         this.done = done;
+    }
+
+    public String getTask(){
+        return this.task;
+    }
+
+    public boolean getStatus(){
+        return this.done;
     }
 
     public void mark(){
@@ -29,12 +37,11 @@ abstract public class Task {
             case "E" -> {
                 return Event.deserialize(parts);
             }
-            default -> {
-                throw new TalkGPTException("Invalid task type");
-            }
+            default -> throw new TalkGPTException("Invalid task type");
         }
     }
 
+    abstract String serialize();
 
     @Override
     public String toString(){

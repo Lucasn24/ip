@@ -12,11 +12,16 @@ public class ToDo extends Task{
         String completed = parts[1];
         String description = parts[2];
 
-        if (Objects.equals(completed, "1")) {
+        if (Objects.equals(completed, "true")) {
             return new ToDo(description, true);
         } else {
             return new ToDo(description, false);
         }
+    }
+
+    @Override
+    public String serialize(){
+        return String.format("T|%b|%s\n", super.getStatus(), super.getTask());
     }
 
     @Override
