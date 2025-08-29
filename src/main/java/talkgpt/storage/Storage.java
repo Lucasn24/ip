@@ -19,6 +19,10 @@ public class Storage {
         this.file = new File(path);
     }
 
+    /**
+     * Reads and loads the data from the file into the TaskList
+     * @return TaskList containing the contents of the file
+     */
     public TaskList load(){
         File folder = file.getParentFile();
 
@@ -46,6 +50,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes and saves serialized task into the file
+     * @param task Task to be saved in the file
+     */
     public void save(Task task){
         try {
             FileWriter writer = new FileWriter(path, true);
@@ -56,7 +64,7 @@ public class Storage {
         }
     }
 
-    public void reset(){
+    private void reset(){
         try (FileWriter writer = new FileWriter(path, false)) { // 'false' to overwrite the file
             // Do nothing or write a header if needed; this clears the file's contents
         } catch (IOException e) {
@@ -64,6 +72,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes and rewrite the task from the file
+     * @param index Index of the task to be deleted
+     */
     public void delete(int index) {
         this.reset();
         for (Task addTask : list) {
@@ -71,6 +83,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Removes the oldTask from the tasklist and replaces it with the newTask
+     * @param oldTask oldTask String in the serialized format
+     * @param newTask newTask to be swapped into
+     */
     public void update(String oldTask, Task newTask) {
         try {
             String lineToUpdate = newTask.serialize();
