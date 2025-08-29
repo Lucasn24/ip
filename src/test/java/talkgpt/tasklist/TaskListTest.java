@@ -5,8 +5,6 @@ import talkgpt.task.Task;
 import talkgpt.task.ToDo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import static talkgpt.task.Deadline.deserialize;
 
 public class TaskListTest {
 
