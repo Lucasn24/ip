@@ -21,7 +21,7 @@ public class ToDo extends Task{
 
     @Override
     public String serialize(){
-        return String.format("T|%b|%s\n", super.getStatus(), super.getTask());
+        return String.format("T|%b|%s", super.getStatus(), super.getTask());
     }
 
     @Override

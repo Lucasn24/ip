@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 abstract public class Task {
     private final String task;
     private boolean done;
@@ -47,5 +49,14 @@ abstract public class Task {
     public String toString(){
         String checkbox = done ? "[X]" : "[ ]";
         return checkbox + " " + task;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(Objects.equals(o.toString(), this.toString())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
