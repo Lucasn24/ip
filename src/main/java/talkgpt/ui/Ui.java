@@ -47,6 +47,7 @@ public class Ui {
 
     /**
      * Reads the next input from the user
+     *
      * @return input of the user
      */
     public String readCommand(){
@@ -57,6 +58,7 @@ public class Ui {
 
     /**
      * prints the add task message
+     *
      * @param task Task to be added
      * @param size Size of the taskList
      */
@@ -68,6 +70,7 @@ public class Ui {
 
     /**
      * prints the delete task message
+     *
      * @param task Task to be deleted
      * @param size Size of the taskList
      */
@@ -79,6 +82,7 @@ public class Ui {
 
     /**
      * prints the mark task message
+     *
      * @param task Task to be marked
      * @param size Size of the taskList
      */
@@ -90,6 +94,7 @@ public class Ui {
 
     /**
      * prints the unmark task message
+     *
      * @param task Task to be unmarked
      * @param size Size of the taskList
      */
@@ -101,6 +106,7 @@ public class Ui {
 
     /**
      * prints the list message
+     *
      * @param list List of the TalkGPT
      */
     public void listView(TaskList list){

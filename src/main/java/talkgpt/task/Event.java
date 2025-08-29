@@ -25,6 +25,7 @@ public class Event extends Task {
 
     /**
      * Construct an Event task, which is marked depending on the boolean done
+     *
      * @param task description of the task
      * @param from start datetime of the task in yyyy-mm-ddTHH:mm format
      * @param to end datetime of the task in yyyy-mm-ddTHH:mm format
@@ -38,6 +39,7 @@ public class Event extends Task {
 
     /**
      * Reads the serialized string and constructs the corresponding Event task
+     *
      * @param parts array of parsed string in [E, true, read book, 2025-12-03T18:00, 2025-12-03T20:00]
      * @return Event task
      */
@@ -56,6 +58,7 @@ public class Event extends Task {
 
     /**
      * Converts the Event Task into a serialized string
+     *
      * @return a serialized string in E|true|event|2024-12-03T1800|2024-12-03T2000 format
      */
     @Override
