@@ -10,6 +10,6 @@ public class DeleteCommand extends Command{
     void execute(TaskList list, Ui ui, Storage storage) {
         Task task = list.deleteTask(index);
         ui.deleteTask(task, list.size());
-        storage.delete(task);
+        storage.delete(index);
     }
 }

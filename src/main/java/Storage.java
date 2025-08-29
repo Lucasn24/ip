@@ -59,19 +59,10 @@ public class Storage {
         }
     }
 
-    public void delete(Task task) {
-        String lineToRemove = task.serialize();
-        System.out.println(lineToRemove);
-
-        boolean removed = list.remove(task);
-        System.out.println(removed);
-        if (removed){
-            this.reset();
-            System.out.println("Deleting " + lineToRemove);
-
-            for (Task addTask : list) {
-                this.save(addTask);
-            }
+    public void delete(int index) {
+        this.reset();
+        for (Task addTask : list) {
+            this.save(addTask);
         }
     }
 
