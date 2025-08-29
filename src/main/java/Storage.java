@@ -1,17 +1,13 @@
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
-import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class Storage {
     private String path;
     private File file;
+    private TaskList list = new TaskList();
 
     public Storage(String path){
         this.path = path;
@@ -20,7 +16,6 @@ public class Storage {
 
     public TaskList load(){
         File folder = file.getParentFile();
-        TaskList list = new TaskList();
 
         try {
             if (!folder.exists()){
@@ -49,51 +44,55 @@ public class Storage {
     public void save(Task task){
         try {
             FileWriter writer = new FileWriter(path, true);
-            writer.write(task.serialize());
+            writer.write(task.serialize() + System.lineSeparator());
             writer.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void delete(Task task) {
-        try {
-            String lineToRemove = task.serialize();
-
-            System.out.println("linetoremove: " + lineToRemove);
-
-            //the file in the list
-            List<String> lines = Files.readAllLines(Paths.get(path));
-
-            //using streams to filter and remove the thing
-            List<String> updatedLines = lines.stream()
-                    .filter(line -> !line.equals(lineToRemove))
-                    .toList();
-
-            //overwrite the file
-            Files.write(Path.of(path), updatedLines);
-
-        } catch (Exception e) {
+    public void reset(){
+        try (FileWriter writer = new FileWriter(path, false)) { // 'false' to overwrite the file
+            // Do nothing or write a header if needed; this clears the file's contents
+        } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public void delete(Task task) {
+        String lineToRemove = task.serialize();
+        System.out.println(lineToRemove);
+
+        boolean removed = list.remove(task);
+        System.out.println(removed);
+        if (removed){
+            this.reset();
+            System.out.println("Deleting " + lineToRemove);
+
+            for (Task addTask : list) {
+                this.save(addTask);
+            }
         }
     }
 
     public void update(String oldTask, Task newTask) {
         try {
             String lineToUpdate = newTask.serialize();
+            Task outdatedTask = Task.deserialize(oldTask);
 
-            System.out.println("lineToUpdate: " + lineToUpdate);
+            int index = list.indexOf(outdatedTask);
 
-            System.out.println("lineToRemove: " + oldTask);
-            List<String> lines = Files.readAllLines(Paths.get(path));
+            if (index != -1){
+                list.set(index, newTask);
+            }
 
-            List<String> updatedLines = lines.stream()
-                    .map(line -> Objects.equals(line, oldTask) ? lineToUpdate : line)
-                    .toList();
+            this.reset();
 
-            Files.write(Path.of(path), updatedLines);
+            for (Task task : list) {
+                this.save(task);
+            }
 
-        } catch (Exception e) {
+        } catch (TalkGPTException e) {
             System.out.println(e.getMessage());
         }
     }

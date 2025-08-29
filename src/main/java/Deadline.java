@@ -24,6 +24,7 @@ public class Deadline extends Task{
         String description = parts[2];
         String due = parts[3];
 
+        System.out.println(due);
         if (Objects.equals(completed, "true")) {
             return new Deadline(description, due,true);
         } else {
@@ -34,7 +35,7 @@ public class Deadline extends Task{
     @Override
     public String serialize(){
         //D|true|return book|03-12-2024T1800
-        return String.format("D|%b|%s|%s\n", super.getStatus(), super.getTask(), this.dueDate);
+        return String.format("D|%b|%s|%s", super.getStatus(), super.getTask(), this.dueDate);
     }
 
     @Override

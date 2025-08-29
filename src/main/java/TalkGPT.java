@@ -33,6 +33,6 @@ public class TalkGPT {
     }
 
     public static void main(String[] args) {
-        new TalkGPT("/Users/lucas/ip/src/main/test/data.txt").run();
+        new TalkGPT("C:\\Users\\lucas\\Documents\\IP\\src\\main\\test\\data.txt").run();
     }
 }
