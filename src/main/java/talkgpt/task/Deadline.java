@@ -1,11 +1,13 @@
+package talkgpt.task;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     private final LocalDateTime dueDate;
 
-    Deadline(String task, String dueDate) {
+    public Deadline(String task, String dueDate) {
         super(task, false);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -14,7 +16,7 @@ public class Deadline extends Task{
 
     }
 
-    Deadline(String task, String dueDate, boolean done) {
+    public Deadline(String task, String dueDate, boolean done) {
         super(task, done);
         this.dueDate = LocalDateTime.parse(dueDate);
     }

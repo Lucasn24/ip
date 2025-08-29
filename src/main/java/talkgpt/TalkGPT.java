@@ -1,7 +1,10 @@
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
-import java.util.Set;
+package talkgpt;
+
+import talkgpt.command.Command;
+import talkgpt.parser.Parser;
+import talkgpt.storage.Storage;
+import talkgpt.tasklist.TaskList;
+import talkgpt.ui.Ui;
 
 public class TalkGPT {
     private Storage storage;

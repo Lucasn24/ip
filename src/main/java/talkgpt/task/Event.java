@@ -1,12 +1,14 @@
+package talkgpt.task;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.time.format.DateTimeFormatter;
 
-public class Event extends Task{
+public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
-    Event(String task, String from, String to) {
+    public Event(String task, String from, String to) {
         super(task, false);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -15,7 +17,7 @@ public class Event extends Task{
         this.to = LocalDateTime.parse(to, formatter);
     }
 
-    Event(String task, String from, String to, boolean done) {
+    public Event(String task, String from, String to, boolean done) {
         super(task, done);
         this.from = LocalDateTime.parse(from);
         this.to = LocalDateTime.parse(to);

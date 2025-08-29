@@ -1,4 +1,11 @@
-public class DeleteCommand extends Command{
+package talkgpt.command;
+
+import talkgpt.storage.Storage;
+import talkgpt.tasklist.TaskList;
+import talkgpt.ui.Ui;
+import talkgpt.task.Task;
+
+public class DeleteCommand extends Command {
     private final int index;
 
     public DeleteCommand(String index){
@@ -7,7 +14,7 @@ public class DeleteCommand extends Command{
     }
 
     @Override
-    void execute(TaskList list, Ui ui, Storage storage) {
+    public void execute(TaskList list, Ui ui, Storage storage) {
         Task task = list.deleteTask(index);
         ui.deleteTask(task, list.size());
         storage.delete(index);

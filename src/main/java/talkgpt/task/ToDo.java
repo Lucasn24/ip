@@ -1,11 +1,13 @@
+package talkgpt.task;
+
 import java.util.Objects;
 
-public class ToDo extends Task{
-    ToDo(String task) {
+public class ToDo extends Task {
+    public ToDo(String task) {
         super(task, false);
     }
 
-    ToDo(String task, boolean done){
+    public ToDo(String task, boolean done){
         super(task, done);
     }
     public static ToDo deserialize(String[] parts){

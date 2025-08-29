@@ -1,9 +1,14 @@
+package talkgpt.ui;
+
+import talkgpt.task.Task;
+import talkgpt.tasklist.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
     Scanner scanner = new Scanner(System.in);
 
-    Ui() {
+    public Ui() {
 
     }
 

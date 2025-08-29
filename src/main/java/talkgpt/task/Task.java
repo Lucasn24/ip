@@ -1,10 +1,14 @@
+package talkgpt.task;
+
+import talkgpt.TalkGPTException;
+
 import java.util.Objects;
 
 abstract public class Task {
     private final String task;
     private boolean done;
 
-    Task(String task, boolean done){
+    public Task(String task, boolean done){
         this.task = task;
         this.done = done;
     }
@@ -25,7 +29,7 @@ abstract public class Task {
         this.done = false;
     }
 
-    public static Task deserialize(String input) throws TalkGPTException{
+    public static Task deserialize(String input) throws TalkGPTException {
         String[] parts = input.split("\\s*\\|\\s*");
         String type = parts[0];
 
@@ -43,7 +47,7 @@ abstract public class Task {
         }
     }
 
-    abstract String serialize();
+    abstract public String serialize();
 
     @Override
     public String toString(){
