@@ -11,6 +11,7 @@ public class TaskList extends ArrayList<Task> {
     /**
      * marks the task of the given index
      * returns the marked task
+     *
      * @param index of the task to be marked
      * @return marked task
      */
@@ -24,6 +25,7 @@ public class TaskList extends ArrayList<Task> {
     /**
      * unmarks the task of the given index
      * returns the unmarked task
+     *
      * @param index of the task to be unmarked
      * @return unmarked task
      */
@@ -37,6 +39,7 @@ public class TaskList extends ArrayList<Task> {
     /**
      * delete the task of the given index from the tasklist
      * return the deleted task
+     *
      * @param index of the task to be deleted
      * @return deleted task
      */
@@ -49,6 +52,7 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * add task into the tasklist
+     *
      * @param task to be added
      */
     public void addTask(Task task){

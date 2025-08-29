@@ -5,6 +5,7 @@ import java.util.Objects;
 public class ToDo extends Task {
     /**
      * Constructs a ToDo task, which is unmarked
+     *
      * @param task description of the task
      */
     public ToDo(String task) {
@@ -13,6 +14,7 @@ public class ToDo extends Task {
 
     /**
      * Construct a ToDo task. which is marked depending on the boolean done
+     *
      * @param task description of the task
      * @param done status of completion
      */
@@ -22,6 +24,7 @@ public class ToDo extends Task {
 
     /**
      * Reads the serialized string and constructs the corresponding ToDo task
+     *
      * @param parts array of parsed string in [T, true, read book]
      * @return ToDo task
      */
@@ -38,6 +41,7 @@ public class ToDo extends Task {
 
     /**
      * Converts the ToDo Task into a serialized string
+     *
      * @return a serialized string
      */
     @Override

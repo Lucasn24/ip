@@ -21,6 +21,7 @@ public class Storage {
 
     /**
      * Reads and loads the data from the file into the TaskList
+     *
      * @return TaskList containing the contents of the file
      */
     public TaskList load(){
@@ -52,6 +53,7 @@ public class Storage {
 
     /**
      * Writes and saves serialized task into the file
+     *
      * @param task Task to be saved in the file
      */
     public void save(Task task){
@@ -74,6 +76,7 @@ public class Storage {
 
     /**
      * Deletes and rewrite the task from the file
+     *
      * @param index Index of the task to be deleted
      */
     public void delete(int index) {
@@ -85,6 +88,7 @@ public class Storage {
 
     /**
      * Removes the oldTask from the tasklist and replaces it with the newTask
+     *
      * @param oldTask oldTask String in the serialized format
      * @param newTask newTask to be swapped into
      */
