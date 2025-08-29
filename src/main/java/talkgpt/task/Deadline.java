@@ -26,7 +26,6 @@ public class Deadline extends Task {
         String description = parts[2];
         String due = parts[3];
 
-        System.out.println(due);
         if (Objects.equals(completed, "true")) {
             return new Deadline(description, due,true);
         } else {
