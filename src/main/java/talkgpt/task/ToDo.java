@@ -10,6 +10,7 @@ public class ToDo extends Task {
     public ToDo(String task, boolean done){
         super(task, done);
     }
+
     public static ToDo deserialize(String[] parts){
         String completed = parts[1];
         String description = parts[2];

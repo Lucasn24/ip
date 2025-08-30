@@ -1,9 +1,9 @@
 package talkgpt.command;
 
 import talkgpt.storage.Storage;
+import talkgpt.task.Task;
 import talkgpt.tasklist.TaskList;
 import talkgpt.ui.Ui;
-import talkgpt.task.Task;
 
 public class UnmarkCommand extends Command {
     private int index;

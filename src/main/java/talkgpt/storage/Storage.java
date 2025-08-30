@@ -7,6 +7,7 @@ import talkgpt.tasklist.TaskList;
 import java.io.IOException;
 import java.io.File;
 import java.io.FileWriter;
+
 import java.util.Scanner;
 
 public class Storage {
@@ -57,8 +58,8 @@ public class Storage {
     }
 
     public void reset(){
-        try (FileWriter writer = new FileWriter(path, false)) { // 'false' to overwrite the file
-            // Do nothing or write a header if needed; this clears the file's contents
+        try (FileWriter writer = new FileWriter(path, false)) {
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
