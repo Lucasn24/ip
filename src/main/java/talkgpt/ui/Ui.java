@@ -70,6 +70,14 @@ public class Ui {
     }
 
     public void listView(TaskList list){
-        System.out.println(formatMessage(list.toString(), list.size()));
+        String msg = "Here are the tasks in your list:\n" + list + "\n";
+
+        System.out.println(formatMessage(msg, list.size()));
+    }
+
+    public void findTask(TaskList tasks) {
+        String msg = "Here is the matching tasks in the list:\n" + tasks.toString() + "\n";
+
+        System.out.println(formatMessage(msg, tasks.size()));
     }
 }

@@ -37,7 +37,6 @@ public class TaskList extends ArrayList<Task> {
 
     @Override
     public String toString(){
-        String header = "Here are the tasks in your list:\n";
         StringBuilder msg = new StringBuilder();
 
         for (int i = 0; i < super.size(); i++) {
@@ -45,6 +44,21 @@ public class TaskList extends ArrayList<Task> {
             msg.append(adding);
         }
 
-        return header + msg;
+        return msg.toString();
+    }
+
+    public TaskList findTask(String keyword) {
+        TaskList results = new TaskList();
+
+        for (int i = 0; i < this.size(); i++) {
+            Task task = super.get(i);
+            String description = task.getDescription();
+
+            if  (description.contains(keyword)) {
+                results.add(task);
+            }
+        }
+
+        return results;
     }
 }
