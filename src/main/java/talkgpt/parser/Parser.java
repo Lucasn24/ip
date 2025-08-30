@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class Parser {
     public static final Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline",
-            "event", "list", "delete", "bye");
+            "event", "list", "delete", "bye", "find");
 
     public Parser(){
 
@@ -45,6 +45,9 @@ public class Parser {
             }
             case "todo" -> {
                 return new AddCommand(new ToDo(message));
+            }
+            case "find" -> {
+                return new FindCommand(message);
             }
             case "deadline" -> {
                 String[] components = message.split(" /by ", 2);
