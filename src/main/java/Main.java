@@ -7,6 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import talkgpt.TalkGPT;
+import talkgpt.component.MainWindow;
 
 
 public class Main extends Application {
