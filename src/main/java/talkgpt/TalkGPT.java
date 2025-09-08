@@ -19,6 +19,15 @@ public class TalkGPT {
         this.list = storage.load();
     }
 
+    public String getResponse(String input){
+        try {
+            Command c = parser.parse(input);
+            return c.execute(list, ui, storage);
+        } catch (TalkGPTException e) {
+            return e.getMessage();
+        }
+    }
+
     public void run(){
         this.ui.welcome();
         boolean isExit = false;

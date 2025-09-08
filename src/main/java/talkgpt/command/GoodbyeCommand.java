@@ -21,7 +21,7 @@ public class GoodbyeCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        ui.goodbye();
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        return ui.goodbye();
     }
 }
