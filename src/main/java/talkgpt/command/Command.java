@@ -15,5 +15,5 @@ abstract public class Command {
         return this.isExit;
     }
 
-    abstract public void execute(TaskList list, Ui ui, Storage storage);
+    abstract public String execute(TaskList list, Ui ui, Storage storage);
 }
