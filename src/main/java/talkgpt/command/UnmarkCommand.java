@@ -26,10 +26,11 @@ public class UnmarkCommand extends Command {
      * @param storage Storage for the unmarked task to be updated
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         String oldTask = list.get(index).serialize();
         Task newTask = list.unmarkTask(index);
-        ui.unmarkTask(newTask, list.size());
         storage.update(oldTask, newTask);
+
+        return ui.unmarkTask(newTask, list.size());
     }
 }

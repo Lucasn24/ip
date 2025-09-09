@@ -16,33 +16,28 @@ public class Ui {
         String border = "____________________________________________________________\n";
         String display = String.format("Now you have %d tasks in the list.\n", size);
 
-        return border + message + display + border;
+        return message + display;
     }
 
     /**
      * prints the welcome page of TalkGPT
      */
-    public void welcome(){
-        String intro = """
-                ____________________________________________________________
+    public String welcome(){
+        String intro = """                
                 Hello! I'm TalkGPT!
                 What can I do for you?
-                ____________________________________________________________
                 """;
-        System.out.println(intro);
+        return intro;
     }
 
     /**
      * prints the goodbye page of TalkGPT
      */
-    public void goodbye(){
-        String goodbye = """
-                ____________________________________________________________
+    public String goodbye(){
+        String goodbye = """             
                 Bye. Hope to see you again soon!
-                
-                ____________________________________________________________
                 """;
-        System.out.print(goodbye);
+        return goodbye;
     }
 
     /**
@@ -62,10 +57,10 @@ public class Ui {
      * @param task Task to be added
      * @param size Size of the taskList
      */
-    public void addTask(Task task, int size){
+    public String addTask(Task task, int size){
         String header = "Got it. I've added this task:\n";
 
-        System.out.println(formatMessage(header + " " + task + "\n", size));
+        return formatMessage(header + " " + task + "\n", size);
     }
 
     /**
@@ -74,10 +69,10 @@ public class Ui {
      * @param task Task to be deleted
      * @param size Size of the taskList
      */
-    public void deleteTask(Task task, int size){
+    public String deleteTask(Task task, int size){
         String msg = "Noted. I've removed this task:\n" + " " + task + "\n";
 
-        System.out.println(formatMessage(msg, size));
+        return formatMessage(msg, size);
     }
 
     /**
@@ -86,10 +81,10 @@ public class Ui {
      * @param task Task to be marked
      * @param size Size of the taskList
      */
-    public void markTask(Task task, int size){
+    public String markTask(Task task, int size){
         String msg = "Nice! I've marked this task as done:\n" + " " + task + "\n";
 
-        System.out.println(formatMessage(msg, size));
+        return formatMessage(msg, size);
     }
 
     /**
@@ -98,10 +93,10 @@ public class Ui {
      * @param task Task to be unmarked
      * @param size Size of the taskList
      */
-    public void unmarkTask(Task task, int size){
+    public String unmarkTask(Task task, int size){
         String msg = "OK, I've marked this task as not done yet:\n" + " " + task + "\n";
 
-        System.out.println(formatMessage(msg, size));
+        return formatMessage(msg, size);
     }
 
     /**
@@ -109,15 +104,15 @@ public class Ui {
      *
      * @param list List of the TalkGPT
      */
-    public void listView(TaskList list){
+    public String listView(TaskList list){
         String msg = "Here are the tasks in your list:\n" + list + "\n";
 
-        System.out.println(formatMessage(msg, list.size()));
+        return formatMessage(msg, list.size());
     }
 
-    public void findTask(TaskList tasks) {
+    public String findTask(TaskList tasks) {
         String msg = "Here is the matching tasks in the list:\n" + tasks.toString() + "\n";
 
-        System.out.println(formatMessage(msg, tasks.size()));
+        return formatMessage(msg, tasks.size());
     }
 }

@@ -26,10 +26,11 @@ public class MarkCommand extends Command {
      * @param storage Storage for the marked task to be updated
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) {
+    public String execute(TaskList list, Ui ui, Storage storage) {
         String oldTask = list.get(index).serialize();
         Task newTask = list.markTask(index);
-        ui.markTask(newTask, list.size());
         storage.update(oldTask, newTask);
+
+        return ui.markTask(newTask, list.size());
     }
 }
