@@ -48,7 +48,8 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "TalkGPT"
+    archiveFileName = 'TalkGPT.jar'
     archiveClassifier = null
 }
 
