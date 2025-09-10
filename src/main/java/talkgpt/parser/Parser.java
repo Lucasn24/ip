@@ -34,6 +34,7 @@ public class Parser {
 
         String[] parts = input.split(" ", 2);
         String command = parts[0];
+        assert parts.length > 1 : "The input cannot be a single word";
         String message = parts[1];
 
         switch (command) {
@@ -51,6 +52,8 @@ public class Parser {
             }
             case "deadline" -> {
                 String[] components = message.split(" /by ", 2);
+                assert components.length > 1 : "The deadline command is missing a /by field";
+                
                 String task = components[0];
                 String stringDate = components[1];
 
@@ -59,8 +62,11 @@ public class Parser {
             case "event" -> {
                 String[] components = message.split(" /from ", 2);
                 String task = components[0];
+                assert components.length > 1 : "The event command is missing a /from field";
 
                 String[] dates = components[1].split(" /to ", 2);
+                assert dates.length > 1 : "The event command is missing a /to field";
+
                 String from = dates[0];
                 String to = dates[1];
 

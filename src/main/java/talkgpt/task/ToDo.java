@@ -29,6 +29,9 @@ public class ToDo extends Task {
      * @return ToDo task
      */
     public static ToDo deserialize(String[] parts){
+        assert Objects.equals(parts[0], "T") : "The serialized task is not a ToDo";
+        assert parts.length == 3 : "The serialized ToDo task should have 3 components";
+        
         String completed = parts[1];
         String description = parts[2];
 
