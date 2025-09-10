@@ -45,6 +45,8 @@ public class Storage {
                 list.addTask(Task.deserialize(input));
             }
 
+            sc.close();
+
             return list;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -95,7 +97,6 @@ public class Storage {
      */
     public void update(String oldTask, Task newTask) {
         try {
-            String lineToUpdate = newTask.serialize();
             Task outdatedTask = Task.deserialize(oldTask);
 
             int index = list.indexOf(outdatedTask);

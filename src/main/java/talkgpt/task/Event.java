@@ -45,6 +45,9 @@ public class Event extends Task {
      * @return Event task
      */
     public static Event deserialize(String[] parts){
+        assert Objects.equals(parts[0], "E") : "The serialized task is not an Event";
+        assert parts.length == 5 : "The serialized Event task should have 5 components";
+
         String completed = parts[1];
         String description = parts[2];
         String from = parts[3];
