@@ -1,8 +1,8 @@
 package talkgpt.tasklist;
 
-import talkgpt.task.Task;
-
 import java.util.ArrayList;
+
+import talkgpt.task.Task;
 
 public class TaskList extends ArrayList<Task> {
 

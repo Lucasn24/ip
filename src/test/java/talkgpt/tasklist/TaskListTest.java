@@ -1,15 +1,16 @@
 package talkgpt.tasklist;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
 import talkgpt.task.Task;
 import talkgpt.task.ToDo;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TaskListTest {
 
     @Test
-    public void testMarkTask(){
+    public void testMarkTask() {
         TaskList taskList = new TaskList();
         Task task = new ToDo("read book");
         taskList.add(task);
@@ -20,7 +21,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testUnmarkTask(){
+    public void testUnmarkTask() {
         TaskList taskList = new TaskList();
         Task task = new ToDo("read book", true);
         taskList.add(task);
@@ -31,7 +32,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testDeleteTask(){
+    public void testDeleteTask() {
         TaskList taskList = new TaskList();
         Task task1 = new ToDo("read book");
         Task task2 = new ToDo("return book");

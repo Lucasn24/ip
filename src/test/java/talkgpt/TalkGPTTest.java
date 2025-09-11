@@ -1,4 +1,4 @@
 package talkgpt;
 
-public class TalkGPTTest {
+public class TalkgptTest {
 }
