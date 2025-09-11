@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import talkgpt.TalkGPT;
+import talkgpt.Talkgpt;
 
 /**
  * Controller for the main GUI.
@@ -21,7 +21,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    private TalkGPT talkgpt;
+    private Talkgpt talkgpt;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setTalkGPT(TalkGPT t) {
+    public void setTalkGPT(Talkgpt t) {
         talkgpt = t;
     }
 

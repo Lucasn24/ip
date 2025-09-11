@@ -6,12 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import talkgpt.TalkGPT;
+import talkgpt.Talkgpt;
 import talkgpt.component.MainWindow;
 
 
 public class Main extends Application {
-    private TalkGPT talkgpt = new TalkGPT("C:\\Users\\lucas\\Documents\\IP\\src\\main\\test\\data.txt");
+    private Talkgpt talkgpt = new Talkgpt("C:\\Users\\lucas\\Documents\\IP\\src\\main\\test\\data.txt");
 
     @Override
     public void start(Stage stage) {
