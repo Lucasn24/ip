@@ -5,25 +5,29 @@ import talkgpt.task.Task;
 import talkgpt.tasklist.TaskList;
 import talkgpt.ui.Ui;
 
+/**
+ * Represents a command to delete a task from the task list in the TalkGPT application.
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
     /**
-     * Command to deleted task
+     * Constructs a DeleteCommand to delete a task at the specified index.
      *
-     * @param index index of the task in the list to be deleted
+     * @param index Index of the task in the list to be deleted (1-based, will be converted to 0-based).
      */
-    public DeleteCommand(String index){
+    public DeleteCommand(String index) {
         super(false);
         this.index = Integer.parseInt(index) - 1;
     }
 
     /**
-     * Execute the delete Task functions for the taskList, UI and Storage
+     * Executes the delete task function for the TaskList, UI, and Storage.
      *
-     * @param list TaskList for task to be deleted into
-     * @param ui UI for the deleted task print statement
-     * @param storage Storage for the task to be deleted
+     * @param list TaskList from which the task will be deleted.
+     * @param ui UI for displaying the deleted task message.
+     * @param storage Storage for updating the persistent task data.
+     * @return The confirmation message after deleting the task.
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {

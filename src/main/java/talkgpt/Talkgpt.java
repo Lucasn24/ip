@@ -38,7 +38,7 @@ public class Talkgpt {
         try {
             Command c = parser.parse(input);
             return c.execute(list, ui, storage);
-        } catch (TalkGPTException e) {
+        } catch (TalkgptException e) {
             return e.getMessage();
         }
     }
@@ -56,7 +56,7 @@ public class Talkgpt {
                 Command c = parser.parse(fullCommand);
                 c.execute(list, ui, storage);
                 isExit = c.isExit();
-            } catch (TalkGPTException e) {
+            } catch (TalkgptException e) {
                 System.out.println(e.getMessage());
             }
         }

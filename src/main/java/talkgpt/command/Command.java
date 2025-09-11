@@ -4,16 +4,38 @@ import talkgpt.storage.Storage;
 import talkgpt.tasklist.TaskList;
 import talkgpt.ui.Ui;
 
-abstract public class Command {
+/**
+ * Represents an abstract command in the TalkGPT application.
+ * Subclasses implement specific command behaviors for task management.
+ */
+public abstract class Command {
     private boolean isExit;
 
-    public Command(boolean isExit){
+    /**
+     * Constructs a Command with the specified exit status.
+     *
+     * @param isExit True if this command should exit the application, false otherwise.
+     */
+    public Command(boolean isExit) {
         this.isExit = isExit;
     }
 
-    public boolean isExit(){
+    /**
+     * Returns whether this command should exit the application.
+     *
+     * @return True if the command is an exit command, false otherwise.
+     */
+    public boolean isExit() {
         return this.isExit;
     }
 
-    abstract public String execute(TaskList list, Ui ui, Storage storage);
+    /**
+     * Executes the command with the given TaskList, UI, and Storage.
+     *
+     * @param list TaskList to operate on.
+     * @param ui UI for user interaction.
+     * @param storage Storage for persistent data.
+     * @return The result of the command execution as a string.
+     */
+    public abstract String execute(TaskList list, Ui ui, Storage storage);
 }

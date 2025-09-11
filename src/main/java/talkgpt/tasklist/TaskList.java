@@ -4,18 +4,25 @@ import java.util.ArrayList;
 
 import talkgpt.task.Task;
 
+/**
+ * Represents a list of Task objects in the TalkGPT application.
+ * Extends ArrayList to provide additional methods for marking, unmarking,
+ * deleting, adding, and searching tasks.
+ */
 public class TaskList extends ArrayList<Task> {
 
-    public TaskList(){}
+    /**
+     * Constructs an empty TaskList.
+     */
+    public TaskList() {}
 
     /**
-     * marks the task of the given index
-     * returns the marked task
+     * Marks the task at the given index as done.
      *
-     * @param index of the task to be marked
-     * @return marked task
+     * @param index The index of the task to be marked.
+     * @return The marked task.
      */
-    public Task markTask(int index){
+    public Task markTask(int index) {
         Task task = super.get(index);
         task.mark();
 
@@ -23,13 +30,12 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * unmarks the task of the given index
-     * returns the unmarked task
+     * Unmarks the task at the given index (marks as not done).
      *
-     * @param index of the task to be unmarked
-     * @return unmarked task
+     * @param index The index of the task to be unmarked.
+     * @return The unmarked task.
      */
-    public Task unmarkTask(int index){
+    public Task unmarkTask(int index) {
         Task task = super.get(index);
         task.unmark();
 
@@ -37,13 +43,12 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * delete the task of the given index from the tasklist
-     * return the deleted task
+     * Deletes the task at the given index from the task list.
      *
-     * @param index of the task to be deleted
-     * @return deleted task
+     * @param index The index of the task to be deleted.
+     * @return The deleted task.
      */
-    public Task deleteTask(int index){
+    public Task deleteTask(int index) {
         Task task = super.get(index);
         super.remove(index);
 
@@ -51,26 +56,38 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * add task into the tasklist
+     * Adds a task to the task list.
      *
-     * @param task to be added
+     * @param task The task to be added.
      */
-    public void addTask(Task task){
+    public void addTask(Task task) {
         super.add(task);
     }
 
+    /**
+     * Returns a string representation of the task list,
+     * with each task on a new line and numbered.
+     *
+     * @return The string representation of the task list.
+     */
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder msg = new StringBuilder();
 
         for (int i = 0; i < super.size(); i++) {
-            String adding = String.format("%d. %s\n", i+1, super.get(i).toString());
+            String adding = String.format("%d. %s\n", i + 1, super.get(i).toString());
             msg.append(adding);
         }
 
         return msg.toString();
     }
 
+    /**
+     * Finds and returns a TaskList of tasks whose descriptions contain the given keyword.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return A TaskList containing matching tasks.
+     */
     public TaskList findTask(String keyword) {
         TaskList results = new TaskList();
 
@@ -78,7 +95,7 @@ public class TaskList extends ArrayList<Task> {
             Task task = super.get(i);
             String description = task.getDescription();
 
-            if  (description.contains(keyword)) {
+            if (description.contains(keyword)) {
                 results.add(task);
             }
         }

@@ -2,18 +2,22 @@ package talkgpt.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.Objects;
 
+/**
+ * Represents an Event task in the TalkGPT application.
+ * An Event has a description, a start datetime, and an end datetime.
+ */
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
     /**
-     * Construct an Event task, which is unmarked
-     * @param task description of the task
-     * @param from start datetime of the task in d/m/yyyy HHmm format
-     * @param to end datetime of the task in d/m/yyyy HHmm format
+     * Constructs an Event task, which is unmarked by default.
+     *
+     * @param task Description of the task.
+     * @param from Start datetime of the task in d/M/yyyy HHmm format.
+     * @param to   End datetime of the task in d/M/yyyy HHmm format.
      */
     public Event(String task, String from, String to) {
         super(task, false);
@@ -25,12 +29,12 @@ public class Event extends Task {
     }
 
     /**
-     * Construct an Event task, which is marked depending on the boolean done
+     * Constructs an Event task, which is marked depending on the boolean done.
      *
-     * @param task description of the task
-     * @param from start datetime of the task in yyyy-mm-ddTHH:mm format
-     * @param to end datetime of the task in yyyy-mm-ddTHH:mm format
-     * @param done status of completion
+     * @param task Description of the task.
+     * @param from Start datetime of the task in yyyy-MM-ddTHH:mm format.
+     * @param to   End datetime of the task in yyyy-MM-ddTHH:mm format.
+     * @param done Status of completion.
      */
     public Event(String task, String from, String to, boolean done) {
         super(task, done);
@@ -39,12 +43,12 @@ public class Event extends Task {
     }
 
     /**
-     * Reads the serialized string and constructs the corresponding Event task
+     * Reads the serialized string and constructs the corresponding Event task.
      *
-     * @param parts array of parsed string in [E, true, read book, 2025-12-03T18:00, 2025-12-03T20:00]
-     * @return Event task
+     * @param parts Array of parsed string in [E, true, description, from, to].
+     * @return Event task.
      */
-    public static Event deserialize(String[] parts){
+    public static Event deserialize(String[] parts) {
         assert Objects.equals(parts[0], "E") : "The serialized task is not an Event";
         assert parts.length == 5 : "The serialized Event task should have 5 components";
 
@@ -61,16 +65,22 @@ public class Event extends Task {
     }
 
     /**
-     * Converts the Event Task into a serialized string
+     * Converts the Event Task into a serialized string.
      *
-     * @return a serialized string in E|true|event|2024-12-03T1800|2024-12-03T2000 format
+     * @return A serialized string in E|true|event|from|to format.
      */
     @Override
-    public String serialize(){
+    public String serialize() {
         //E|true|event|03-12-2024T1800|03-12-2024T2000
         return String.format("E|%b|%s|%s|%s", super.getStatus(), super.getTask(), this.from, this.to);
     }
 
+    /**
+     * Returns the string representation of the Event task,
+     * including its type, status, description, and date range.
+     *
+     * @return The string representation of the Event task.
+     */
     @Override
     public String toString() {
         String fromMsg = this.from.getDayOfWeek()

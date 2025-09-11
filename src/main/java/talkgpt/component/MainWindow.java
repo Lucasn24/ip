@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setTalkGPT(Talkgpt t) {
+    public void setTalkgpt(Talkgpt t) {
         talkgpt = t;
     }
 
