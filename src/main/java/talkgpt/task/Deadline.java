@@ -2,17 +2,20 @@ package talkgpt.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.Objects;
 
+/**
+ * Represents a Deadline task in the TalkGPT application.
+ * A Deadline has a description and a due date.
+ */
 public class Deadline extends Task {
     private final LocalDateTime dueDate;
 
     /**
-     * Construct a deadline task, which is unmarked
+     * Constructs a Deadline task, which is unmarked by default.
      *
-     * @param task description of the task
-     * @param dueDate dueDate of the task in d/m/yyyy HHmm format
+     * @param task Description of the task.
+     * @param dueDate Due date of the task in d/M/yyyy HHmm format.
      */
     public Deadline(String task, String dueDate) {
         super(task, false);
@@ -24,11 +27,11 @@ public class Deadline extends Task {
     }
 
     /**
-     * Construct a deadline task, which is marked depending on the boolean done
+     * Constructs a Deadline task, which is marked depending on the boolean done.
      *
-     * @param task description of the task
-     * @param dueDate dueDate of the task in yyyy-mm-ddTHH:mm format
-     * @param done status of completion
+     * @param task Description of the task.
+     * @param dueDate Due date of the task in yyyy-MM-ddTHH:mm format.
+     * @param done Status of completion.
      */
     public Deadline(String task, String dueDate, boolean done) {
         super(task, done);
@@ -36,37 +39,42 @@ public class Deadline extends Task {
     }
 
     /**
-     * Reads the serialized string and constructs the corresponding Deadline task
+     * Reads the serialized string and constructs the corresponding Deadline task.
      *
-     * @param parts array of parsed string in [D, true, read book, 2025-12-03T18:00]
-     * @return Deadline task
+     * @param parts Array of parsed string in [D, true, description, dueDate].
+     * @return Deadline task.
      */
-    public static Deadline deserialize(String[] parts){
+    public static Deadline deserialize(String[] parts) {
         assert Objects.equals(parts[0], "D") : "The serialized task is not a Deadline";
         assert parts.length == 4 : "The serialized Deadline task should have 4 components";
-        
         String completed = parts[1];
         String description = parts[2];
         String due = parts[3];
 
         if (Objects.equals(completed, "true")) {
-            return new Deadline(description, due,true);
+            return new Deadline(description, due, true);
         } else {
-            return new Deadline(description, due,false);
+            return new Deadline(description, due, false);
         }
     }
 
     /**
-     * Converts the Deadline Task into a serialized string
+     * Converts the Deadline Task into a serialized string.
      *
-     * @return a serialized string in E|true|deadline|2024-12-03T1800 format
+     * @return A serialized string in D|true|deadline|dueDate format.
      */
     @Override
-    public String serialize(){
+    public String serialize() {
         //D|true|return book|03-12-2024T1800
         return String.format("D|%b|%s|%s", super.getStatus(), super.getTask(), this.dueDate);
     }
 
+    /**
+     * Returns the string representation of the Deadline task,
+     * including its type, status, description, and due date.
+     *
+     * @return The string representation of the Deadline task.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (By "

@@ -1,23 +1,47 @@
 package talkgpt.parser;
 
-import talkgpt.TalkGPTException;
-import talkgpt.command.*;
-import talkgpt.task.*;
-
 import java.util.Objects;
 import java.util.Set;
 
+import talkgpt.TalkgptException;
+import talkgpt.command.AddCommand;
+import talkgpt.command.Command;
+import talkgpt.command.DeleteCommand;
+import talkgpt.command.FindCommand;
+import talkgpt.command.GoodbyeCommand;
+import talkgpt.command.ListCommand;
+import talkgpt.command.MarkCommand;
+import talkgpt.command.UnmarkCommand;
+import talkgpt.task.Deadline;
+import talkgpt.task.Event;
+import talkgpt.task.ToDo;
+
+/**
+ * Parses user input and returns the corresponding Command object for execution.
+ * Handles validation and extraction of command arguments for the TalkGPT application.
+ */
 public class Parser {
-    public static final Set<String> validCommands = Set.of("mark", "unmark", "todo", "deadline",
+    public static final Set<String> VALIDCOMMANDS = Set.of("mark", "unmark", "todo", "deadline",
             "event", "list", "delete", "bye", "find");
 
-    public Parser(){
+    /**
+     * Constructs a Parser instance.
+     */
+    public Parser() {
 
     }
 
-    public Command parse(String input) throws TalkGPTException {
-        if (!validCommands.contains(input) && input.length() == 1) {
-            throw new TalkGPTException("Sorry, I don't recognize that command!");
+    /**
+     * Parses the user input string and returns the appropriate Command object.
+     * Throws TalkGPTException if the input is invalid or required arguments are missing.
+     *
+     * @param input The user input string.
+     * @return The corresponding Command object.
+     * @throws TalkgptException If the input is invalid or incomplete.
+     */
+    public Command parse(String input) throws TalkgptException {
+        if (!VALIDCOMMANDS.contains(input) && input.length() == 1) {
+            throw new TalkgptException("Sorry, I don't recognize that command!");
         }
 
         if (Objects.equals(input, "list")) {
@@ -29,7 +53,7 @@ public class Parser {
         }
 
         if (input == null) {
-            throw new TalkGPTException("The input cannot be empty.");
+            throw new TalkgptException("The input cannot be empty.");
         }
 
         String[] parts = input.split(" ", 2);
@@ -38,46 +62,46 @@ public class Parser {
         String message = parts[1];
 
         switch (command) {
-            case "mark" -> {
-                return new MarkCommand(message);
-            }
-            case "unmark" -> {
-                return new UnmarkCommand(message);
-            }
-            case "todo" -> {
-                return new AddCommand(new ToDo(message));
-            }
-            case "find" -> {
-                return new FindCommand(message);
-            }
-            case "deadline" -> {
-                String[] components = message.split(" /by ", 2);
-                assert components.length > 1 : "The deadline command is missing a /by field";
-                
-                String task = components[0];
-                String stringDate = components[1];
+        case "mark" -> {
+            return new MarkCommand(message);
+        }
+        case "unmark" -> {
+            return new UnmarkCommand(message);
+        }
+        case "todo" -> {
+            return new AddCommand(new ToDo(message));
+        }
+        case "find" -> {
+            return new FindCommand(message);
+        }
+        case "deadline" -> {
+            String[] components = message.split(" /by ", 2);
+            assert components.length > 1 : "The deadline command is missing a /by field";
 
-                return new AddCommand(new Deadline(task, stringDate));
-            }
-            case "event" -> {
-                String[] components = message.split(" /from ", 2);
-                String task = components[0];
-                assert components.length > 1 : "The event command is missing a /from field";
+            String task = components[0];
+            String stringDate = components[1];
 
-                String[] dates = components[1].split(" /to ", 2);
-                assert dates.length > 1 : "The event command is missing a /to field";
+            return new AddCommand(new Deadline(task, stringDate));
+        }
+        case "event" -> {
+            String[] components = message.split(" /from ", 2);
+            String task = components[0];
+            assert components.length > 1 : "The event command is missing a /from field";
 
-                String from = dates[0];
-                String to = dates[1];
+            String[] dates = components[1].split(" /to ", 2);
+            assert dates.length > 1 : "The event command is missing a /to field";
 
-                return new AddCommand(new Event(task, from, to));
-            }
-            case "delete" -> {
-                return new DeleteCommand(message);
-            }
-            default -> {
-                throw new TalkGPTException("Invalid Command.");
-            }
+            String from = dates[0];
+            String to = dates[1];
+
+            return new AddCommand(new Event(task, from, to));
+        }
+        case "delete" -> {
+            return new DeleteCommand(message);
+        }
+        default -> {
+            throw new TalkgptException("Invalid Command.");
+        }
         }
     }
 }

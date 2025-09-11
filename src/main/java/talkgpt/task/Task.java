@@ -1,67 +1,121 @@
 package talkgpt.task;
 
-import talkgpt.TalkGPTException;
-
 import java.util.Objects;
 
-abstract public class Task {
+import talkgpt.TalkgptException;
+
+/**
+ * Represents a generic task in the TalkGPT application.
+ * Provides common properties and methods for all task types.
+ */
+public abstract class Task {
     private final String task;
     private boolean done;
 
-    public Task(String task, boolean done){
+    /**
+     * Constructs a Task with the specified description and completion status.
+     *
+     * @param task The description of the task.
+     * @param done The completion status of the task.
+     */
+    public Task(String task, boolean done) {
         this.task = task;
         this.done = done;
     }
 
-    public String getTask(){
+    /**
+     * Returns the description of the task.
+     *
+     * @return The task description.
+     */
+    public String getTask() {
         return this.task;
     }
 
-    public boolean getStatus(){
+    /**
+     * Returns the completion status of the task.
+     *
+     * @return True if the task is done, false otherwise.
+     */
+    public boolean getStatus() {
         return this.done;
     }
 
-    public String getDescription(){
+    /**
+     * Returns the description of the task.
+     *
+     * @return The task description.
+     */
+    public String getDescription() {
         return this.task;
     }
 
-    public void mark(){
+    /**
+     * Marks the task as done.
+     */
+    public void mark() {
         this.done = true;
     }
 
-    public void unmark(){
+    /**
+     * Marks the task as not done.
+     */
+    public void unmark() {
         this.done = false;
     }
 
-    public static Task deserialize(String input) throws TalkGPTException {
+    /**
+     * Deserializes a string into a Task object.
+     *
+     * @param input The serialized task string.
+     * @return The deserialized Task object.
+     * @throws TalkgptException If the task type is invalid.
+     */
+    public static Task deserialize(String input) throws TalkgptException {
         String[] parts = input.split("\\s*\\|\\s*");
         String type = parts[0];
 
-        switch(type){
-            case "T" -> {
-                return ToDo.deserialize(parts);
-            }
-            case "D" -> {
-                return Deadline.deserialize(parts);
-            }
-            case "E" -> {
-                return Event.deserialize(parts);
-            }
-            default -> throw new TalkGPTException("Invalid task type");
+        switch(type) {
+        case "T" -> {
+            return ToDo.deserialize(parts);
+        }
+        case "D" -> {
+            return Deadline.deserialize(parts);
+        }
+        case "E" -> {
+            return Event.deserialize(parts);
+        }
+        default -> throw new TalkgptException("Invalid task type");
         }
     }
 
-    abstract public String serialize();
+    /**
+     * Serializes the task into a string representation.
+     *
+     * @return The serialized task string.
+     */
+    public abstract String serialize();
 
+    /**
+     * Returns the string representation of the task, including its status.
+     *
+     * @return The string representation of the task.
+     */
     @Override
-    public String toString(){
+    public String toString() {
         String checkbox = done ? "[X]" : "[ ]";
         return checkbox + " " + task;
     }
 
+    /**
+     * Checks if this task is equal to another object based on their string representations.
+     *
+     * @param o The object to compare.
+     * @return True if the objects are equal, false otherwise.
+     */
     @Override
-    public boolean equals(Object o){
-        if(Objects.equals(o.toString(), this.toString())) {
+    public boolean equals(Object o) {
+        if (Objects.equals(o.toString(), this.toString())) {
             return true;
         } else {
             return false;

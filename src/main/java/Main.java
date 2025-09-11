@@ -5,14 +5,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import talkgpt.TalkGPT;
+import talkgpt.Talkgpt;
 import talkgpt.component.MainWindow;
 
 
+/**
+ * Main entry point for the TalkGPT JavaFX application.
+ * Initializes the application and sets up the main window.
+ */
 public class Main extends Application {
-    private TalkGPT talkgpt = new TalkGPT("C:\\Users\\lucas\\Documents\\IP\\src\\main\\test\\data.txt");
+    private Talkgpt talkgpt = new Talkgpt("C:\\Users\\lucas\\Documents\\IP\\src\\main\\test\\data.txt");
 
+    /**
+     * Starts the JavaFX application and loads the main window.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -20,7 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setTalkGPT(talkgpt);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setTalkgpt(talkgpt); //inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

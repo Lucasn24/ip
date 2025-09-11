@@ -4,21 +4,25 @@ import talkgpt.storage.Storage;
 import talkgpt.tasklist.TaskList;
 import talkgpt.ui.Ui;
 
+/**
+ * Represents a command to display the goodbye message and exit the TalkGPT application.
+ */
 public class GoodbyeCommand extends Command {
 
     /**
-     * Command to execute goodbye statement
+     * Constructs a GoodbyeCommand to execute the goodbye statement.
      */
-    public GoodbyeCommand(){
+    public GoodbyeCommand() {
         super(true);
     }
 
     /**
-     * Execute goodbye statement from UI
+     * Executes the goodbye command using the UI.
      *
-     * @param list TaskList
-     * @param ui UI to print goodbye statement
-     * @param storage Storage
+     * @param list TaskList (not used in this command).
+     * @param ui UI to print the goodbye statement.
+     * @param storage Storage (not used in this command).
+     * @return The goodbye message as a string.
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) {
