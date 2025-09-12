@@ -8,7 +8,6 @@ public class FindCommand extends Command {
     private String keyword;
 
     public FindCommand(String keyword){
-        super(false);
         this.keyword = keyword;
     }
 

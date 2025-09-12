@@ -9,9 +9,7 @@ public class GoodbyeCommand extends Command {
     /**
      * Command to execute goodbye statement
      */
-    public GoodbyeCommand(){
-        super(true);
-    }
+    public GoodbyeCommand() {}
 
     /**
      * Execute goodbye statement from UI

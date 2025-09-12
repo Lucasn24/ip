@@ -13,7 +13,6 @@ public class Ui {
     }
 
     private String formatMessage(String message, int size) {
-        String border = "____________________________________________________________\n";
         String display = String.format("Now you have %d tasks in the list.\n", size);
 
         return message + display;

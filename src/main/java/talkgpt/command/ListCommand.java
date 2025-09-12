@@ -9,9 +9,7 @@ public class ListCommand extends Command {
     /**
      * Command to execute list statement
      */
-    public ListCommand(){
-        super(false);
-    }
+    public ListCommand() {}
 
     /**
      * Execute goodbye statement from UI

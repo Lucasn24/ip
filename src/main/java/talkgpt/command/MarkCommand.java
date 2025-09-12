@@ -14,7 +14,6 @@ public class MarkCommand extends Command {
      * @param index index of the task in the list to be marked
      */
     public MarkCommand(String index){
-        super(false);
         this.index = Integer.parseInt(index) - 1;
     }
 

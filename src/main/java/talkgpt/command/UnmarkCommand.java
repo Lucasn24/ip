@@ -14,7 +14,6 @@ public class UnmarkCommand extends Command {
      * @param index index of the task in the list to be unmarked
      */
     public UnmarkCommand(String index){
-        super(false);
         this.index = Integer.parseInt(index) - 1;
     }
 

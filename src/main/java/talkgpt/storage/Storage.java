@@ -95,7 +95,6 @@ public class Storage {
      */
     public void update(String oldTask, Task newTask) {
         try {
-            String lineToUpdate = newTask.serialize();
             Task outdatedTask = Task.deserialize(oldTask);
 
             int index = list.indexOf(outdatedTask);

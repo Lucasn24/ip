@@ -14,7 +14,6 @@ public class DeleteCommand extends Command {
      * @param index index of the task in the list to be deleted
      */
     public DeleteCommand(String index){
-        super(false);
         this.index = Integer.parseInt(index) - 1;
     }
 
