@@ -43,31 +43,5 @@ public class Talkgpt {
         }
     }
 
-    /**
-     * Runs the main loop of the application, handling user input and command execution.
-     */
-    public void run() {
-        this.ui.welcome();
-        boolean isExit = false;
-
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = parser.parse(fullCommand);
-                c.execute(list, ui, storage);
-                isExit = c.isExit();
-            } catch (TalkgptException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Entry point for the TalkGPT application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Talkgpt("C:\\Users\\lucas\\Documents\\IP\\src\\main\\test\\data.txt").run();
-    }
+    public static void main(String[] args) {}
 }

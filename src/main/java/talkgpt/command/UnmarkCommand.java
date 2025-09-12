@@ -16,8 +16,7 @@ public class UnmarkCommand extends Command {
      *
      * @param index Index of the task in the list to be unmarked (1-based, will be converted to 0-based).
      */
-    public UnmarkCommand(String index) {
-        super(false);
+    public UnmarkCommand(String index){
         this.index = Integer.parseInt(index) - 1;
     }
 

@@ -12,9 +12,7 @@ public class ListCommand extends Command {
     /**
      * Constructs a ListCommand to display all tasks.
      */
-    public ListCommand() {
-        super(false);
-    }
+    public ListCommand() {}
 
     /**
      * Executes the list command to display all tasks using the UI.

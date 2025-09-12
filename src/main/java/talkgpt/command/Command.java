@@ -9,25 +9,13 @@ import talkgpt.ui.Ui;
  * Subclasses implement specific command behaviors for task management.
  */
 public abstract class Command {
-    private boolean isExit;
 
     /**
      * Constructs a Command with the specified exit status.
      *
      * @param isExit True if this command should exit the application, false otherwise.
      */
-    public Command(boolean isExit) {
-        this.isExit = isExit;
-    }
-
-    /**
-     * Returns whether this command should exit the application.
-     *
-     * @return True if the command is an exit command, false otherwise.
-     */
-    public boolean isExit() {
-        return this.isExit;
-    }
+    public Command() {}
 
     /**
      * Executes the command with the given TaskList, UI, and Storage.

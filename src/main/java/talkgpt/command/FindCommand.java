@@ -10,13 +10,7 @@ import talkgpt.ui.Ui;
 public class FindCommand extends Command {
     private String keyword;
 
-    /**
-     * Constructs a FindCommand to search for tasks with the specified keyword.
-     *
-     * @param keyword The keyword to search for in task descriptions.
-     */
-    public FindCommand(String keyword) {
-        super(false);
+    public FindCommand(String keyword){
         this.keyword = keyword;
     }
 

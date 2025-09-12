@@ -12,9 +12,7 @@ public class GoodbyeCommand extends Command {
     /**
      * Constructs a GoodbyeCommand to execute the goodbye statement.
      */
-    public GoodbyeCommand() {
-        super(true);
-    }
+    public GoodbyeCommand() {}
 
     /**
      * Executes the goodbye command using the UI.
