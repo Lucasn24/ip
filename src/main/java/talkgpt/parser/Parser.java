@@ -11,6 +11,7 @@ import talkgpt.command.FindCommand;
 import talkgpt.command.GoodbyeCommand;
 import talkgpt.command.ListCommand;
 import talkgpt.command.MarkCommand;
+import talkgpt.command.TagCommand;
 import talkgpt.command.UnmarkCommand;
 import talkgpt.task.Deadline;
 import talkgpt.task.Event;
@@ -22,7 +23,7 @@ import talkgpt.task.ToDo;
  */
 public class Parser {
     public static final Set<String> VALIDCOMMANDS = Set.of("mark", "unmark", "todo", "deadline",
-            "event", "list", "delete", "bye", "find");
+            "event", "list", "delete", "bye", "find", "tag");
 
     /**
      * Constructs a Parser instance.
@@ -62,6 +63,9 @@ public class Parser {
         String message = parts[1];
 
         switch (command) {
+        case "tag" -> {
+            return new TagCommand(message);
+        }
         case "mark" -> {
             return new MarkCommand(message);
         }
@@ -69,32 +73,41 @@ public class Parser {
             return new UnmarkCommand(message);
         }
         case "todo" -> {
-            return new AddCommand(new ToDo(message));
+            String[] components = message.split(" /tag ", 2);
+            String task = components[0];
+            String tag = components[1];
+            return new AddCommand(new ToDo(task, tag));
         }
         case "find" -> {
             return new FindCommand(message);
         }
         case "deadline" -> {
+            //deadline return book /by 3/12/2024 1800 /tag school
             String[] components = message.split(" /by ", 2);
             assert components.length > 1 : "The deadline command is missing a /by field";
 
             String task = components[0];
-            String stringDate = components[1];
+            String stringDate = components[1].split(" /tag ", 2)[0];
+            String tag = components[1].split(" /tag ", 2)[1];
 
-            return new AddCommand(new Deadline(task, stringDate));
+            return new AddCommand(new Deadline(task, stringDate, tag));
         }
         case "event" -> {
+            //event project meeting /from 3/12/2024 1400 /to 3/12/2024 1600 /tag school
             String[] components = message.split(" /from ", 2);
             String task = components[0];
             assert components.length > 1 : "The event command is missing a /from field";
 
-            String[] dates = components[1].split(" /to ", 2);
+            //3/12/2024 1400 /to 3/12/2024 1600 /tag school
+            String[] dates = components[1].split(" /tag ", 2)[0].split(" /to ", 2);
             assert dates.length > 1 : "The event command is missing a /to field";
 
             String from = dates[0];
             String to = dates[1];
 
-            return new AddCommand(new Event(task, from, to));
+            String tag = components[1].split(" /tag ", 2)[1];
+
+            return new AddCommand(new Event(task, from, to, tag));
         }
         case "delete" -> {
             return new DeleteCommand(message);

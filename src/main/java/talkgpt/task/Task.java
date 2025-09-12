@@ -11,16 +11,28 @@ import talkgpt.TalkgptException;
 public abstract class Task {
     private final String task;
     private boolean done;
+    private String tag;
 
     /**
      * Constructs a Task with the specified description and completion status.
      *
      * @param task The description of the task.
      * @param done The completion status of the task.
+     * @param tag  The tag associated with the task.
      */
-    public Task(String task, boolean done) {
+    public Task(String task, boolean done, String tag) {
         this.task = task;
         this.done = done;
+        this.tag = tag;
+    }
+
+    /**
+     * Gets the tag associated with this task.
+     *
+     * @return The tag string for this task.
+     */
+    public String getTag() {
+        return this.tag;
     }
 
     /**

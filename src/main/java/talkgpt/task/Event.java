@@ -19,8 +19,8 @@ public class Event extends Task {
      * @param from Start datetime of the task in d/M/yyyy HHmm format.
      * @param to   End datetime of the task in d/M/yyyy HHmm format.
      */
-    public Event(String task, String from, String to) {
-        super(task, false);
+    public Event(String task, String from, String to, String tag) {
+        super(task, false, tag);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
@@ -36,8 +36,8 @@ public class Event extends Task {
      * @param to   End datetime of the task in yyyy-MM-ddTHH:mm format.
      * @param done Status of completion.
      */
-    public Event(String task, String from, String to, boolean done) {
-        super(task, done);
+    public Event(String task, String from, String to, boolean done, String tag) {
+        super(task, done, tag);
         this.from = LocalDateTime.parse(from);
         this.to = LocalDateTime.parse(to);
     }
@@ -50,17 +50,18 @@ public class Event extends Task {
      */
     public static Event deserialize(String[] parts) {
         assert Objects.equals(parts[0], "E") : "The serialized task is not an Event";
-        assert parts.length == 5 : "The serialized Event task should have 5 components";
+        assert parts.length == 6 : "The serialized Event task should have 5 components";
 
         String completed = parts[1];
         String description = parts[2];
         String from = parts[3];
         String to = parts[4];
+        String tag = parts[5];
 
         if (Objects.equals(completed, "true")) {
-            return new Event(description, from, to, true);
+            return new Event(description, from, to, true, tag);
         } else {
-            return new Event(description, from, to, false);
+            return new Event(description, from, to, false, tag);
         }
     }
 
@@ -72,7 +73,8 @@ public class Event extends Task {
     @Override
     public String serialize() {
         //E|true|event|03-12-2024T1800|03-12-2024T2000
-        return String.format("E|%b|%s|%s|%s", super.getStatus(), super.getTask(), this.from, this.to);
+        return String.format("E|%b|%s|%s|%s|%s", super.getStatus(), super.getTask(),
+                                this.from, this.to, super.getTag());
     }
 
     /**

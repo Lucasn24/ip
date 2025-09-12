@@ -10,7 +10,7 @@ import talkgpt.ui.Ui;
 public class FindCommand extends Command {
     private String keyword;
 
-    public FindCommand(String keyword){
+    public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
