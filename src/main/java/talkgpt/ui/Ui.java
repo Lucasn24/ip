@@ -143,4 +143,23 @@ public class Ui {
 
         return formatMessage(msg, tasks.size());
     }
+
+    /**
+     * Prints the tasks with the specified tag.
+     *
+     * @param list The TaskList containing all tasks.
+     * @param tag  The tag to filter tasks by.
+     * @return The formatted tasks with the specified tag message.
+     */
+    public String tagView(TaskList list, String tag) {
+        TaskList taggedTasks = list.getTasksByTag(tag);
+        String msg;
+        if (taggedTasks.size() == 0) {
+            msg = String.format("There are no tasks with the tag: %s\n", tag);
+        } else {
+            msg = String.format("Here are the tasks with the tag: %s\n%s\n", tag, taggedTasks.toString());
+        }
+
+        return formatMessage(msg, list.size());
+    }
 }

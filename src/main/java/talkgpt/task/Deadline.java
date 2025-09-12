@@ -17,8 +17,8 @@ public class Deadline extends Task {
      * @param task Description of the task.
      * @param dueDate Due date of the task in d/M/yyyy HHmm format.
      */
-    public Deadline(String task, String dueDate) {
-        super(task, false);
+    public Deadline(String task, String dueDate, String tag) {
+        super(task, false, tag);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
@@ -33,8 +33,8 @@ public class Deadline extends Task {
      * @param dueDate Due date of the task in yyyy-MM-ddTHH:mm format.
      * @param done Status of completion.
      */
-    public Deadline(String task, String dueDate, boolean done) {
-        super(task, done);
+    public Deadline(String task, String dueDate, boolean done, String tag) {
+        super(task, done, tag);
         this.dueDate = LocalDateTime.parse(dueDate);
     }
 
@@ -46,15 +46,16 @@ public class Deadline extends Task {
      */
     public static Deadline deserialize(String[] parts) {
         assert Objects.equals(parts[0], "D") : "The serialized task is not a Deadline";
-        assert parts.length == 4 : "The serialized Deadline task should have 4 components";
+        assert parts.length == 5 : "The serialized Deadline task should have 4 components";
         String completed = parts[1];
         String description = parts[2];
         String due = parts[3];
+        String tag = parts[4];
 
         if (Objects.equals(completed, "true")) {
-            return new Deadline(description, due, true);
+            return new Deadline(description, due, true, tag);
         } else {
-            return new Deadline(description, due, false);
+            return new Deadline(description, due, false, tag);
         }
     }
 
@@ -66,7 +67,7 @@ public class Deadline extends Task {
     @Override
     public String serialize() {
         //D|true|return book|03-12-2024T1800
-        return String.format("D|%b|%s|%s", super.getStatus(), super.getTask(), this.dueDate);
+        return String.format("D|%b|%s|%s|%s", super.getStatus(), super.getTask(), this.dueDate, super.getTag());
     }
 
     /**

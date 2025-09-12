@@ -12,8 +12,8 @@ public class ToDo extends Task {
      *
      * @param task Description of the task.
      */
-    public ToDo(String task) {
-        super(task, false);
+    public ToDo(String task, String tag) {
+        super(task, false, tag);
     }
 
     /**
@@ -22,26 +22,27 @@ public class ToDo extends Task {
      * @param task Description of the task.
      * @param done Status of completion.
      */
-    public ToDo(String task, boolean done) {
-        super(task, done);
+    public ToDo(String task, boolean done, String tag) {
+        super(task, done, tag);
     }
 
     /**
      * Reads the serialized string and constructs the corresponding ToDo task.
      *
-     * @param parts Array of parsed string in [T, true, read book].
+     * @param parts Array of parsed string in [T, true, read book, tag].
      * @return ToDo task.
      */
     public static ToDo deserialize(String[] parts) {
         assert Objects.equals(parts[0], "T") : "The serialized task is not a ToDo";
-        assert parts.length == 3 : "The serialized ToDo task should have 3 components";
+        assert parts.length == 4 : "The serialized ToDo task should have 3 components";
         String completed = parts[1];
         String description = parts[2];
+        String tag = parts[3];
 
         if (Objects.equals(completed, "true")) {
-            return new ToDo(description, true);
+            return new ToDo(description, true, tag);
         } else {
-            return new ToDo(description, false);
+            return new ToDo(description, false, tag);
         }
     }
 
@@ -52,7 +53,7 @@ public class ToDo extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("T|%b|%s", super.getStatus(), super.getTask());
+        return String.format("T|%b|%s|%s", super.getStatus(), super.getTask(), super.getTag());
     }
 
     /**

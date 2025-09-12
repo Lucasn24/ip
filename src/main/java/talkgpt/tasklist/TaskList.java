@@ -102,4 +102,25 @@ public class TaskList extends ArrayList<Task> {
 
         return results;
     }
+
+    /**
+     * Finds and returns a TaskList of tasks that have the specified tag.
+     *
+     * @param tag The tag to search for in tasks.
+     * @return A TaskList containing tasks with the specified tag.
+     */
+    public TaskList getTasksByTag(String tag) {
+        TaskList results = new TaskList();
+
+        for (int i = 0; i < this.size(); i++) {
+            Task task = super.get(i);
+            String taskTag = task.getTag();
+
+            if (taskTag.equals(tag)) {
+                results.add(task);
+            }
+        }
+
+        return results;
+    }
 }
