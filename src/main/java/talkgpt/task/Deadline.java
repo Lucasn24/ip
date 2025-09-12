@@ -42,6 +42,9 @@ public class Deadline extends Task {
      * @return Deadline task
      */
     public static Deadline deserialize(String[] parts){
+        assert Objects.equals(parts[0], "D") : "The serialized task is not a Deadline";
+        assert parts.length == 4 : "The serialized Deadline task should have 4 components";
+        
         String completed = parts[1];
         String description = parts[2];
         String due = parts[3];

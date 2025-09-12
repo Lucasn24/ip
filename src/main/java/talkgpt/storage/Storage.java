@@ -45,6 +45,8 @@ public class Storage {
                 list.addTask(Task.deserialize(input));
             }
 
+            sc.close();
+
             return list;
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -3,7 +3,6 @@ package talkgpt.task;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import static talkgpt.task.Deadline.deserialize;
 
 public class DeadlineTest {
