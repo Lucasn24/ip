@@ -36,15 +36,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns the description of the task.
-     *
-     * @return The task description.
-     */
-    public String getTask() {
-        return this.task;
-    }
-
-    /**
      * Returns the completion status of the task.
      *
      * @return True if the task is done, false otherwise.

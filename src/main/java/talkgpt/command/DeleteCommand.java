@@ -35,4 +35,16 @@ public class DeleteCommand extends Command {
 
         return ui.deleteTask(task, list.size());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        DeleteCommand that = (DeleteCommand) obj;
+        return index == that.index;
+    }
 }

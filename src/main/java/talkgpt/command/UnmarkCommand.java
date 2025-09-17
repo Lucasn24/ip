@@ -36,4 +36,16 @@ public class UnmarkCommand extends Command {
 
         return ui.unmarkTask(newTask, list.size());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof UnmarkCommand)) {
+            return false;
+        }
+        UnmarkCommand that = (UnmarkCommand) other;
+        return this.index == that.index;
+    }
 }

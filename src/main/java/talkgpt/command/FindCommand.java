@@ -27,4 +27,16 @@ public class FindCommand extends Command {
         TaskList tasks = list.findTask(keyword);
         return ui.findTask(tasks);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        FindCommand that = (FindCommand) obj;
+        return keyword.equals(that.keyword);
+    }
 }

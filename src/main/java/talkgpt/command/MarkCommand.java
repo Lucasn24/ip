@@ -36,4 +36,18 @@ public class MarkCommand extends Command {
 
         return ui.markTask(newTask, list.size());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof MarkCommand)) {
+            return false;
+        }
+
+        MarkCommand o = (MarkCommand) other;
+        return this.index == o.index;
+    }
 }

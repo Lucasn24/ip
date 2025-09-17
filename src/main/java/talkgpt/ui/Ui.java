@@ -33,19 +33,6 @@ public class Ui {
     }
 
     /**
-     * Prints the welcome page of TalkGPT.
-     *
-     * @return The welcome message string.
-     */
-    public String welcome() {
-        String intro = """
-                Hello! I'm TalkGPT!
-                What can I do for you?
-                """;
-        return intro;
-    }
-
-    /**
      * Prints the goodbye page of TalkGPT.
      *
      * @return The goodbye message string.
@@ -55,17 +42,6 @@ public class Ui {
                 Bye. Hope to see you again soon!
                 """;
         return goodbye;
-    }
-
-    /**
-     * Reads the next input from the user.
-     *
-     * @return The input of the user as a string.
-     */
-    public String readCommand() {
-        System.out.print("Would you like to add to the list?: ");
-
-        return scanner.nextLine();
     }
 
     /**
@@ -139,7 +115,7 @@ public class Ui {
      * @return The formatted matching tasks message.
      */
     public String findTask(TaskList tasks) {
-        String msg = "Here is the matching tasks in the list:\n" + tasks.toString() + "\n";
+        String msg = "Here are the matching tasks in the list:\n" + tasks.toString() + "\n";
 
         return formatMessage(msg, tasks.size());
     }
@@ -160,6 +136,6 @@ public class Ui {
             msg = String.format("Here are the tasks with the tag: %s\n%s\n", tag, taggedTasks.toString());
         }
 
-        return formatMessage(msg, list.size());
+        return formatMessage(msg, taggedTasks.size());
     }
 }

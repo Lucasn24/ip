@@ -1,49 +1,49 @@
 package talkgpt.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static talkgpt.task.Deadline.deserialize;
+import static talkgpt.task.ToDo.deserialize;
 
 import org.junit.jupiter.api.Test;
 
-public class DeadlineTest {
+public class ToDoTest {
     @Test
     public void testDeserialize() {
-        String task = "D|false|return book|2025-12-03T18:00|reading";
-        Deadline expected = new Deadline("return book", "2025-12-03T18:00", false, "reading");
+        String task = "T|false|read book|reading";
+        ToDo expected = new ToDo("read book", false, "reading");
         assertEquals(expected, deserialize(task.split("\\s*\\|\\s*")));
     }
 
     @Test
     public void testSerialize() {
-        Deadline task = new Deadline("return book", "2025-12-03T18:00", false, "reading");
-        String expected = "D|false|return book|2025-12-03T18:00|reading";
+        ToDo task = new ToDo("read book", false, "reading");
+        String expected = "T|false|read book|reading";
         assertEquals(expected, task.serialize());
     }
 
     @Test
     public void testgetTag() {
-        Deadline task = new Deadline("return book", "2025-12-03T18:00", false, "reading");
+        ToDo task = new ToDo("read book", false, "reading");
         String expected = "reading";
         assertEquals(expected, task.getTag());
     }
 
     @Test
     public void testgetDescription() {
-        Deadline task = new Deadline("return book", "2025-12-03T18:00", false, "reading");
-        String expected = "return book";
+        ToDo task = new ToDo("read book", false, "reading");
+        String expected = "read book";
         assertEquals(expected, task.getDescription());
     }
 
     @Test
     public void testgetStatus() {
-        Deadline task = new Deadline("return book", "2025-12-03T18:00", false, "reading");
+        ToDo task = new ToDo("read book", false, "reading");
         boolean expected = false;
         assertEquals(expected, task.getStatus());
     }
 
     @Test
     public void testMark() {
-        Deadline task = new Deadline("return book", "2025-12-03T18:00", false, "reading");
+        ToDo task = new ToDo("read book", false, "reading");
         task.mark();
         boolean expected = true;
         assertEquals(expected, task.getStatus());
@@ -51,7 +51,7 @@ public class DeadlineTest {
 
     @Test
     public void testUnmark() {
-        Deadline task = new Deadline("return book", "2025-12-03T18:00", true, "reading");
+        ToDo task = new ToDo("read book", true, "reading");
         task.unmark();
         boolean expected = false;
         assertEquals(expected, task.getStatus());

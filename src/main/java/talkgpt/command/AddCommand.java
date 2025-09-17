@@ -35,4 +35,16 @@ public class AddCommand extends Command {
 
         return ui.addTask(task, list.size());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        AddCommand that = (AddCommand) obj;
+        return task.equals(that.task);
+    }
 }
