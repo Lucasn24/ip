@@ -28,10 +28,10 @@
 
 1. Clone the repository: 
 
-```
+
 git clone https://github.com/Lucasn24/ip.git
 cd ip
-```
+
 
 2. Set up your development environment and dependencies (e.g., Java version, libraries).
 
