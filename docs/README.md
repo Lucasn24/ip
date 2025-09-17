@@ -28,14 +28,13 @@
 
 1. Clone the repository: 
 
-
 git clone https://github.com/Lucasn24/ip.git
 cd ip
 
 
-2. Set up your development environment and dependencies (e.g., Java version, libraries).
+2. Move to ip/build/libs
 
-3. Build and run your chatbot application using your preferred IDE or command line.
+3. Run java -jar .\TalkGPT.jar
 
 ---
 

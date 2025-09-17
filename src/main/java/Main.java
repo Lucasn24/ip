@@ -14,7 +14,7 @@ import talkgpt.component.MainWindow;
  * Initializes the application and sets up the main window.
  */
 public class Main extends Application {
-    private Talkgpt talkgpt = new Talkgpt("C:\\Users\\lucas\\Documents\\IP\\src\\main\\test\\data.txt");
+    private Talkgpt talkgpt = new Talkgpt("data/data.txt");
 
     /**
      * Starts the JavaFX application and loads the main window.
