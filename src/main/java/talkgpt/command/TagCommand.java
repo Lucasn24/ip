@@ -31,4 +31,16 @@ public class TagCommand extends Command {
     public String execute(TaskList list, Ui ui, Storage storage) {
         return ui.tagView(list, tag);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof TagCommand)) {
+            return false;
+        }
+        TagCommand that = (TagCommand) other;
+        return this.tag.equals(that.tag);
+    }
 }

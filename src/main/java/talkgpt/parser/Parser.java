@@ -41,7 +41,7 @@ public class Parser {
      * @throws TalkgptException If the input is invalid or incomplete.
      */
     public Command parse(String input) throws TalkgptException {
-        if (!VALIDCOMMANDS.contains(input) && input.length() == 1) {
+        if (!VALIDCOMMANDS.contains(input) && !input.contains(" ")) {
             throw new TalkgptException("Sorry, I don't recognize that command!");
         }
 
@@ -58,63 +58,68 @@ public class Parser {
         }
 
         String[] parts = input.split(" ", 2);
+
+        if (parts.length == 1) {
+            throw new TalkgptException("The input cannot be a single word");
+        }
+
         String command = parts[0];
         assert parts.length > 1 : "The input cannot be a single word";
         String message = parts[1];
 
-        switch (command) {
-        case "tag" -> {
-            return new TagCommand(message);
-        }
-        case "mark" -> {
-            return new MarkCommand(message);
-        }
-        case "unmark" -> {
-            return new UnmarkCommand(message);
-        }
-        case "todo" -> {
-            String[] components = message.split(" /tag ", 2);
-            String task = components[0];
-            String tag = components[1];
-            return new AddCommand(new ToDo(task, tag));
-        }
-        case "find" -> {
-            return new FindCommand(message);
-        }
-        case "deadline" -> {
-            //deadline return book /by 3/12/2024 1800 /tag school
-            String[] components = message.split(" /by ", 2);
-            assert components.length > 1 : "The deadline command is missing a /by field";
+        try {
+            switch (command) {
+            case "tag" -> {
+                return new TagCommand(message);
+            }
+            case "mark" -> {
+                return new MarkCommand(message);
+            }
+            case "unmark" -> {
+                return new UnmarkCommand(message);
+            }
+            case "todo" -> {
+                String[] components = message.split(" /tag ", 2);
+                String task = components[0];
+                String tag = components[1];
+                return new AddCommand(new ToDo(task, tag));
+            }
+            case "find" -> {
+                return new FindCommand(message);
+            }
+            case "deadline" -> {
+                //deadline return book /by 3/12/2024 1800 /tag school
+                String[] components = message.split(" /by ", 2);
+                String task = components[0];
+                String stringDate = components[1].split(" /tag ", 2)[0];
+                String tag = components[1].split(" /tag ", 2)[1];
 
-            String task = components[0];
-            String stringDate = components[1].split(" /tag ", 2)[0];
-            String tag = components[1].split(" /tag ", 2)[1];
+                return new AddCommand(new Deadline(task, stringDate, tag));
+            }
+            case "event" -> {
+                //event project meeting /from 3/12/2024 1400 /to 3/12/2024 1600 /tag school
+                String[] components = message.split(" /from ", 2);
+                String task = components[0];
 
-            return new AddCommand(new Deadline(task, stringDate, tag));
-        }
-        case "event" -> {
-            //event project meeting /from 3/12/2024 1400 /to 3/12/2024 1600 /tag school
-            String[] components = message.split(" /from ", 2);
-            String task = components[0];
-            assert components.length > 1 : "The event command is missing a /from field";
+                //3/12/2024 1400 /to 3/12/2024 1600 /tag school
+                String[] dates = components[1].split(" /tag ", 2)[0].split(" /to ", 2);
 
-            //3/12/2024 1400 /to 3/12/2024 1600 /tag school
-            String[] dates = components[1].split(" /tag ", 2)[0].split(" /to ", 2);
-            assert dates.length > 1 : "The event command is missing a /to field";
+                String from = dates[0];
+                String to = dates[1];
 
-            String from = dates[0];
-            String to = dates[1];
+                String tag = components[1].split(" /tag ", 2)[1];
 
-            String tag = components[1].split(" /tag ", 2)[1];
-
-            return new AddCommand(new Event(task, from, to, tag));
-        }
-        case "delete" -> {
-            return new DeleteCommand(message);
-        }
-        default -> {
-            throw new TalkgptException("Invalid Command.");
-        }
+                return new AddCommand(new Event(task, from, to, tag));
+            }
+            case "delete" -> {
+                return new DeleteCommand(message);
+            }
+            default -> {
+                throw new TalkgptException("Invalid Command.");
+            }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new TalkgptException("The description of a " + command + " is incomplete.");
         }
     }
 }

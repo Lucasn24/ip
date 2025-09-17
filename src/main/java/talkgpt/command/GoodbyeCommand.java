@@ -26,4 +26,15 @@ public class GoodbyeCommand extends Command {
     public String execute(TaskList list, Ui ui, Storage storage) {
         return ui.goodbye();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        return true;
+    }
 }

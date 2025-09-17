@@ -12,7 +12,7 @@ public class TaskListTest {
     @Test
     public void testMarkTask() {
         TaskList taskList = new TaskList();
-        Task task = new ToDo("read book");
+        Task task = new ToDo("read book", "reading");
         taskList.add(task);
         taskList.markTask(0);
 
@@ -23,7 +23,7 @@ public class TaskListTest {
     @Test
     public void testUnmarkTask() {
         TaskList taskList = new TaskList();
-        Task task = new ToDo("read book", true);
+        Task task = new ToDo("read book", true, "reading");
         taskList.add(task);
         taskList.unmarkTask(0);
 
@@ -34,9 +34,9 @@ public class TaskListTest {
     @Test
     public void testDeleteTask() {
         TaskList taskList = new TaskList();
-        Task task1 = new ToDo("read book");
-        Task task2 = new ToDo("return book");
-        Task task3 = new ToDo("walk in the park");
+        Task task1 = new ToDo("read book", "reading");
+        Task task2 = new ToDo("return book", "reading");
+        Task task3 = new ToDo("walk in the park", "leisure");
 
         taskList.add(task1);
         taskList.add(task2);
@@ -54,7 +54,7 @@ public class TaskListTest {
     @Test
     public void testAddTask() {
         TaskList output = new TaskList();
-        Task task = new ToDo("read book");
+        Task task = new ToDo("read book", "reading");
         output.addTask(task);
 
         assertEquals(1, output.size());
@@ -64,9 +64,9 @@ public class TaskListTest {
     @Test
     public void testToString() {
         TaskList taskList = new TaskList();
-        Task task1 = new ToDo("read book");
-        Task task2 = new ToDo("return book", true);
-        Task task3 = new ToDo("walk in the park");
+        Task task1 = new ToDo("read book", "reading");
+        Task task2 = new ToDo("return book", true, "reading");
+        Task task3 = new ToDo("walk in the park", "leisure");
 
         taskList.add(task1);
         taskList.add(task2);
@@ -82,15 +82,15 @@ public class TaskListTest {
     @Test
     public void testFindTasks() {
         TaskList taskList = new TaskList();
-        Task task1 = new ToDo("read book");
-        Task task2 = new ToDo("return book", true);
-        Task task3 = new ToDo("walk in the park");
+        Task task1 = new ToDo("read book", "reading");
+        Task task2 = new ToDo("return book", true, "reading");
+        Task task3 = new ToDo("walk in the park", "leisure");
 
         taskList.add(task1);
         taskList.add(task2);
         taskList.add(task3);
 
-        TaskList found = taskList.findTasks("book");
+        TaskList found = taskList.findTask("book");
 
         TaskList expected = new TaskList();
         expected.add(task1);
