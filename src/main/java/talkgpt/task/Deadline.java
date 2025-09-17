@@ -67,7 +67,7 @@ public class Deadline extends Task {
     @Override
     public String serialize() {
         //D|true|return book|03-12-2024T1800
-        return String.format("D|%b|%s|%s|%s", super.getStatus(), super.getTask(), this.dueDate, super.getTag());
+        return String.format("D|%b|%s|%s|%s", super.getStatus(), super.getDescription(), this.dueDate, super.getTag());
     }
 
     /**

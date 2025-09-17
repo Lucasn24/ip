@@ -73,7 +73,7 @@ public class Event extends Task {
     @Override
     public String serialize() {
         //E|true|event|03-12-2024T1800|03-12-2024T2000
-        return String.format("E|%b|%s|%s|%s|%s", super.getStatus(), super.getTask(),
+        return String.format("E|%b|%s|%s|%s|%s", super.getStatus(), super.getDescription(),
                                 this.from, this.to, super.getTag());
     }
 

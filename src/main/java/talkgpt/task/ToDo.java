@@ -53,7 +53,7 @@ public class ToDo extends Task {
      */
     @Override
     public String serialize() {
-        return String.format("T|%b|%s|%s", super.getStatus(), super.getTask(), super.getTag());
+        return String.format("T|%b|%s|%s", super.getStatus(), super.getDescription(), super.getTag());
     }
 
     /**

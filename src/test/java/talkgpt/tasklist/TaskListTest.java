@@ -61,5 +61,61 @@ public class TaskListTest {
         assertEquals(task, output.get(0));
     }
 
+    @Test
+    public void testToString() {
+        TaskList taskList = new TaskList();
+        Task task1 = new ToDo("read book");
+        Task task2 = new ToDo("return book", true);
+        Task task3 = new ToDo("walk in the park");
 
+        taskList.add(task1);
+        taskList.add(task2);
+        taskList.add(task3);
+
+        String expected = "1. [T][ ] read book\n"
+                + "2. [T][X] return book\n"
+                + "3. [T][ ] walk in the park\n";
+
+        assertEquals(expected, taskList.toString());
+    }
+
+    @Test
+    public void testFindTasks() {
+        TaskList taskList = new TaskList();
+        Task task1 = new ToDo("read book");
+        Task task2 = new ToDo("return book", true);
+        Task task3 = new ToDo("walk in the park");
+
+        taskList.add(task1);
+        taskList.add(task2);
+        taskList.add(task3);
+
+        TaskList found = taskList.findTasks("book");
+
+        TaskList expected = new TaskList();
+        expected.add(task1);
+        expected.add(task2);
+
+        assertEquals(expected, found);
+    }
+
+    @Test
+    public void testGetTasksByTag() {
+        TaskList taskList = new TaskList();
+        Task task1 = new ToDo("read book", false, "reading");
+        Task task2 = new ToDo("return book", true, "reading");
+        Task task3 = new ToDo("walk in the park", false, "leisure");
+
+        taskList.add(task1);
+        taskList.add(task2);
+        taskList.add(task3);
+
+        TaskList found = taskList.getTasksByTag("reading");
+
+        TaskList expected = new TaskList();
+        expected.add(task1);
+        expected.add(task2);
+
+        assertEquals(expected, found);
+    }
 }
